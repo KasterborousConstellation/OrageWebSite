@@ -1,0 +1,30 @@
+.navbar{
+    display: flex;
+    flex-direction: row;
+    background-color: var(--orage_dark_blue);
+    height: 70px;
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+}
+.navbar-item-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+.navbar-item{
+    padding: 5px 10px 5px 10px;
+    margin: 0;
+    border-radius: 10px;
+}
+.navbar-item:hover{
+    background-image: linear-gradient(#1c7ed6,#4dabf7);
+    border: 0;
+}
+.logo{
+    height: 50px;
+}

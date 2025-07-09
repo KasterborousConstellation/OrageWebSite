@@ -1,0 +1,23 @@
+<div class = "navbar">
+    {#Balances items in the two containers#}
+    <div class="navbar-item-container">
+        {% set half = (items|length / 2 )|round %}
+        {% for i in 0..half-1 %}
+            <div class="navbar-item">
+                <p>{{items[i]}}</p>
+            </div> 
+        {% endfor %}
+
+    </div>
+    <div class ="navbarlogo">
+        <img src={{ asset("images/logo.png") }} alt="logo" class ="logo">
+    </div>
+    <div class="navbar-item-container">
+        {% for i in half..items|length -1 %}
+            <div class="navbar-item">
+                <p>{{items[i]}}</p>
+            </div> 
+        {% endfor %}
+    </div>
+    
+</div>
