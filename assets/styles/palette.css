@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
 
 html{
-    --orage_dark_blue : #1971c2;
+    --orage_dark_blue : #1864ab;
+    --orage_light_blue : #1c7ed6;
     font-family: 'Quicksand', Arial, Helvetica, sans-serif;
     font-weight: 600;
 }

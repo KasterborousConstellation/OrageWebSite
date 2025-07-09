@@ -1,21 +1,23 @@
 <div class = "navbar">
+    {% set navitems = [["home","Accueil"],["lessons","Cours"]] %}
     {#Balances items in the two containers#}
     <div class="navbar-item-container">
-        {% set half = (items|length / 2 )|round %}
+        {% set half = (navitems|length / 2 )|round %}
         {% for i in 0..half-1 %}
-            <div class="navbar-item">
-                <p>{{items[i]}}</p>
+             <div class="navbar-item {% if app.request.get('_route') == navitems[i][0] %}active{% endif %}">
+                <a href="{{ url(navitems[i][0]) }}">{{navitems[i][1]}}</a>
             </div> 
         {% endfor %}
 
     </div>
     <div class ="navbarlogo">
         <img src={{ asset("images/logo.png") }} alt="logo" class ="logo">
+        <p>ORAGE</p>
     </div>
     <div class="navbar-item-container">
-        {% for i in half..items|length -1 %}
-            <div class="navbar-item">
-                <p>{{items[i]}}</p>
+        {% for i in half..navitems|length -1 %}
+            <div class="navbar-item {% if app.request.get('_route') == navitems[i][0] %}active{% endif %}">
+                <a href="{{ url(navitems[i][0]) }}">{{navitems[i][1]}}</a>
             </div> 
         {% endfor %}
     </div>
