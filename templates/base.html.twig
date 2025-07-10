@@ -3,11 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}
         <link rel="icon" type="image/png" href={{ asset("images/favicon.ico") }}>
         <link rel="stylesheet" href= {{ asset("styles/palette.css")}}>
         <link rel="stylesheet" href={{ asset("styles/navbar.css") }}>
         <link rel="stylesheet" href={{ asset("styles/app.css") }}>
+        {% block stylesheets %}
+        
         {% endblock %}
     </head>
     <body>

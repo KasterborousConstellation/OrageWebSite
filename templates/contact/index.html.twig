@@ -1,0 +1,23 @@
+{% extends 'pageWnavbar.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href={{ asset("styles/contact.css") }}>
+{% endblock %}
+
+{% block navbody %}
+<div class = "headbody">
+    <h1>Contactez-nous</h1>
+    <h2>Questions ou suggestions, nous sommes disponible toute la semaine. </h2>
+</div>
+<a class ="reset-a" href={{ url("contact.mail") }}>
+<div class ="etiquette-container">
+    <div class="etiquette">
+        <img class ="etiquette-icon" src={{ asset("images/envelope.svg") }} alt="icon">
+        <h2>Par mail</h2>
+        <p>Ecrivez nous à l'adresse mail: <br>contact@asso-orage.fr</p>
+    </div>
+</div>
+</a>
+
+{% endblock %}

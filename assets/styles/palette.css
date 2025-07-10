@@ -3,6 +3,7 @@
 html{
     --orage_dark_blue : #1864ab;
     --orage_light_blue : #1c7ed6;
+    --orage_background : #dee2e6;
     font-family: 'Quicksand', Arial, Helvetica, sans-serif;
-    font-weight: 600;
+    
 }
