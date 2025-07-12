@@ -1,0 +1,291 @@
+@import url('https://fonts.cdnfonts.com/css/lemon-milk');
+body {
+    background-color: var(--orage_background);
+    color: #333;
+}
+
+.container-wrapper {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+}
+
+@media (min-width: 640px) {
+    .container-wrapper {
+        padding: 1.5rem;
+    }
+}
+@media (min-width: 1024px) {
+    .container-wrapper {
+        padding: 2rem;
+    }
+}
+
+.section-title {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 50%;
+    height: 3px;
+    background-color: var(--orage_light_blue);
+    border-radius: 9999px;
+}
+
+@media (min-width: 640px) {
+    .section-title {
+        font-size: 2.25rem;
+    }
+}
+
+.hero-section {
+    text-align: center;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    background: linear-gradient(to right, var(--orage_light_blue), var(--orage_dark_blue));
+    color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+    .hero-section {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+    }
+}
+
+.hero-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    line-height: 1.25;
+}
+
+@media (min-width: 640px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+}
+@media (min-width: 1024px) {
+    .hero-title {
+        font-size: 3.75rem;
+    }
+}
+
+.hero-highlight {
+    font-weight: 500;
+    font-size: larger;
+    font-family: 'LEMON MILK', sans-serif;
+    font-style: italic;                                            
+}
+
+
+.hero-subtitle {
+    font-size: 1.125rem;
+    opacity: 0.9;
+    max-width: 48rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 640px) {
+    .hero-subtitle {
+        font-size: 1.25rem;
+    }
+}
+@media (min-width: 1024px) {
+    .hero-subtitle {
+        font-size: 1.5rem;
+    }
+}
+
+.hero-actions {
+    margin-top: 2rem;
+}
+
+.hero-button {
+    display: inline-block;
+    background-color: #fff;
+    color: var(--orage_dark_blue);
+    font-weight: 700;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease-in-out;
+    text-decoration: none;
+}
+
+.hero-button:hover {
+    background-color: #f3f4f6;
+    transform: scale(1.05);
+}
+
+.missions-section,
+.latest-additions-section,
+.latest-news-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    margin-bottom: 3rem;
+}
+
+.missions-grid,
+.latest-additions-grid,
+.latest-news-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .missions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .latest-additions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .missions-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .latest-news-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.mission-card,
+.addition-card,
+.news-card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease-in-out;
+}
+
+.mission-card:hover,
+.addition-card:hover,
+.news-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.mission-card {
+    text-align: center;
+}
+
+.mission-icon {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+.icon-light { color: var(--orage_light_blue); }
+.icon-book { color: #22c55e; }
+.icon-handshake { color: #a855f7; }
+
+.mission-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    text-align: center;
+}
+
+.mission-description {
+    color: #4b5563;
+    text-align: center;
+}
+
+.addition-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.addition-image {
+    width: 100%;
+    height: 12rem;
+    object-fit: cover;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+}
+
+.addition-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.addition-description {
+    color: #4b5563;
+    margin-bottom: 1rem;
+}
+
+.addition-link {
+    color: var(--orage_light_blue);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.addition-link:hover {
+    color: var(--orage_dark_blue);
+}
+
+.news-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.news-icon {
+    flex-shrink: 0;
+    font-size: 3rem;
+}
+.icon-calendar { color: #f97316; }
+.icon-announcement { color: #14b8a6; }
+
+.news-title {
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.news-description {
+    color: #4b5563;
+    margin-bottom: 0.5rem;
+}
+
+.news-date {
+    font-size: 0.875rem;
+    color: #6b7280;
+}
+
+.news-link {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--orage_light_blue);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.news-link:hover {
+    color: var(--orage_dark_blue);
+}
