@@ -1,5 +1,5 @@
 :root{
-    --navbar-height: 10vh;
+    --navbar-height: max(50px,10vh);
 }
 .navbar{
     display: flex;
@@ -22,34 +22,78 @@
     margin-top: var(--navbar-height);
 }
 .navbar-item-container{
+    position: relative;
     display: flex;
     flex-direction: row;
     width: 100%;
     justify-content: space-around;
+    height: max-content;
 }
 .navbar-item{
     padding: 5px 20px 5px 20px;
     margin: 0;
     border-radius: 10px;
     color: #f3f0ff;
+    transition: transform 0.2s ease;
 }
-.active{
-    background-color: var(--orage_dark_blue);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+.navbar-item:not(.active):hover{
+    background-color: #4c566a;
+}
+.navbar-item:hover{
+    transform: rotate(1deg) scale(1.075);
+}
+.active {
+    background: var(--orage_dark_blue);
+    
+    position: relative;
+    box-shadow: 0 4px 16px rgba(33,37,41,0.10);
+    z-index: 11;
 }
 .navbar-item a{
     font-style: normal;
     text-decoration: none;
-    color: inherit;
+    color: #f3f0ff;
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    display: inline-block;
+}
+.active::after {
+    content: '';
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 6px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--orage-accent-color);
+    opacity: 0.95;
+    pointer-events: none;
+}
+.navbarlogo{
+    height: var(--navbar-height);
+    width: var(--navbar-height);
+    aspect-ratio: 1/1;
+    min-width: var(--navbar-height);
+    min-height: var(--navbar-height);
+    max-width: var(--navbar-height);
+    max-height: var(--navbar-height);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
 .logo{
     margin-top: 10px;
-    height: 50px;
+    width: auto;
+    height: min(50%,75px);
+    object-fit:cover;
 }
 .navbarlogo p {
     margin: 0;
     margin-bottom: 5px;
-    font-size: larger;
+    font-size: 1rem;
     text-align: center;
     color: white;
 }
