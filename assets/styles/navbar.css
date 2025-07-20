@@ -1,14 +1,25 @@
+:root{
+    --navbar-height: 10vh;
+}
 .navbar{
     display: flex;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
     flex-direction: row;
     background-color: #212529;
-    height: fit-content;
+    height: var(--navbar-height);
     margin: 0;
     padding-left: 10px;
     padding-right: 10px;
     align-items: center;
     justify-content: space-around;
     box-shadow: 0 12px 8px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+.navbody{
+    margin-top: var(--navbar-height);
 }
 .navbar-item-container{
     display: flex;

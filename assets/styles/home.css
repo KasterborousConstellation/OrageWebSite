@@ -58,7 +58,9 @@ body {
     text-align: center;
     padding-top: 4rem;
     padding-bottom: 4rem;
-    background: linear-gradient(to right, var(--orage_light_blue), var(--orage_dark_blue));
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    /*background: linear-gradient(to right, var(--orage_light_blue), var(--orage_dark_blue));*/
     color: #fff;
     border-radius: 0.5rem;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
