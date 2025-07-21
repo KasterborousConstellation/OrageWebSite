@@ -1,5 +1,11 @@
-<div class = "navbar">
+<div id = "navbar" class = "navbar">
+    
     {% set navitems = [["home","Accueil"],["lessons","Cours"],["contact","Contact"],["team","Notre Equipe"]] %}
+    <div id = "nav-hamburger" class ="navbar-mobile">
+        <img src={{ asset("images/list.svg") }} class ="logo">
+    </div>
+    <script src={{ asset("JS/navbar.js")}}>
+    </script>
     {#Balances items in the two containers#}
     <div class="navbar-item-container">
         {% set half = (navitems|length / 2 )|round %}
