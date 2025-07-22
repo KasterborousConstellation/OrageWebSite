@@ -19,4 +19,9 @@ final class ContactController extends AbstractController
     {
         return $this->render('contact/mail.html.twig');
     }
+    #[Route('/contact/faq',name : "contact.faq")]
+    public function faq() : Response
+    {
+        return $this->render('contact/faq.html.twig');
+    }
 }

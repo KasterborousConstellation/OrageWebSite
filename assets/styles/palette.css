@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
 
-html{
+:root{
     --orage_dark_blue : #1864ab;
     --orage_light_blue : #1c7ed6;
     --orage_background : #dee2e6;
     --orage-accent-color: #9c36b5;
+    --orage-navbar-color: #212529;
     font-family: 'Quicksand', Arial, Helvetica, sans-serif;
     
 }

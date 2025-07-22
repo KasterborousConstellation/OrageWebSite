@@ -1,5 +1,7 @@
 :root{
     --navbar-height: max(50px,10vh);
+    --navbar-animation-delay: 1s;
+    --navbar-animation-bezier: ease;
 }
 .navbar{
     display: flex;
@@ -8,7 +10,7 @@
     left: 0;
     top: 0;
     flex-direction: row;
-    background-color: #212529;
+    background-color: var(--orage-navbar-color);
     height: var(--navbar-height);
     margin: 0;
     padding-left: 10px;
@@ -17,6 +19,8 @@
     justify-content: space-around;
     box-shadow: 0 12px 8px rgba(0, 0, 0, 0.1);
     z-index: 10;
+    
+    
 }
 .navbody{
     margin-top: var(--navbar-height);
@@ -44,7 +48,6 @@
 }
 .active {
     background: var(--orage_dark_blue);
-    
     position: relative;
     box-shadow: 0 4px 16px rgba(33,37,41,0.10);
     z-index: 11;
@@ -102,17 +105,22 @@
 .navbar-mobile{
     visibility: hidden;
 }
+/* MOBILE MODE*/
 @media (max-width: 700px) {
     .navbar-mobile{
         visibility: visible;
         width: var(--navbar-height);
         height: auto;
         aspect-ratio: 1/1;
-        position: relative;
+        position: static;
+        float: left;
+        margin-left: 0;
+        margin-right: auto;
+        left: 0;
+        right: unset;
+        transition: margin var(--navbar-animation-delay) var(--navbar-animation-bezier);
     }
-    .expand .navbar-mobile{
-        left: -25%;
-    }
+    
     .navbarlogo{
         visibility: hidden;
         position: fixed;
@@ -140,14 +148,15 @@
         width:  var(--navbar-height);
         padding: 0;
         display: flex;
-        align-items: center;
+        align-items: left;
         flex-direction: column;
-        justify-content: center;
+        justify-content: left;
         position: fixed;
         right: 0;
         top: 0;
         left: unset;
         border-radius: 0% 0% 0% 10px;
+        transition: width var(--navbar-animation-delay) var(--navbar-animation-bezier);
     }
     .expand{
         width: calc(2*var(--navbar-height));
@@ -156,6 +165,12 @@
     .navbar-item-container{
         visibility: hidden;
         height: 0;
+    }
+    .expand .navbar-mobile{
+        border-radius: 0;
+    }
+    .expand .navbar-item{
+        border-radius: 0;
     }
     .expand .navbar-item-container{
         visibility: visible;
@@ -170,5 +185,9 @@
         margin: 0;
         padding: 0;
         padding-bottom: 10px;
+        text-overflow: clip;
+        white-space: nowrap;
+        overflow: hidden;
+        
     }
 }
