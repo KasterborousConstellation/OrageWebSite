@@ -1,8 +1,9 @@
 # Project Name
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
-![Build Status](https://img.shields.io/github/actions/workflow/status/KasterborousConstellation/OrageWebSite/symfony.yml?branch=main)
+![Symfony Version](https://img.shields.io/badge/Symfony-6.3%2B-blue.svg)
+![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-purple.svg)
+![CI Status](https://img.shields.io/github/actions/workflow/status/KasterborousConstellation/OrageWebSite/symfony.yml?branch=main&label=CI%20Build)
+![License](https://img.shields.io/badge/license-MIT-green.svg)
 # SGBD
 ## Connexion au SGBD
 Pour faire fonctionner le SGDB, il suffit de connecter sa base de donnée dans le fichier .env puis ```DATABASE_URL```.  
