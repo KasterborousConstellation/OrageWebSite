@@ -1,0 +1,12 @@
+<div class="flash-container">
+{% for message in app.flashes('error') %}
+    <div class="flash-error-container">
+        <p class="flash-error">{{ message }}</p>
+    </div>
+{% endfor %}
+{% for message in app.flashes('success') %}
+    <div class="flash-success-container">
+        <p class="flash-success">{{ message }}</p>
+    </div>
+{% endfor %}
+</div>

@@ -7,23 +7,25 @@
 	<div class="headbody">
 		{% include 'component/backlink.html.twig' %}
 		<div class="contactform">
-      <div class ="contactform-header">
-        <img class ="contactform-icon" src="{{ asset('images/envelope.svg') }}" alt="Contact Mail Icon" />
-        <h1>Contactez-nous par mail</h1>
-        <p>Orage s'engage à vous répondre dans les plus brefs délais !</p>
-      </div>
-			
+			<div class="contactform-header">
+				<img class="contactform-icon" src="{{ asset('images/envelope.svg') }}" alt="Contact Mail Icon"/>
+				<h1>Contactez-nous par mail</h1>
+				<p>Orage s'engage à vous répondre dans les plus brefs délais !</p>
+			</div>
+			{% form_theme form 'form/contact-theme.html.twig' %}
 			{{ form_start(form) }}
-			<div class="form-rows">
+			{{ form_errors(form) }}
+			<div class ="form-rows">
 				{{ form_row(form.name) }}
 				{{ form_row(form.email) }}
 			</div>
-			<div class="form-area">
+			<div class ="form-rows">
 				{{ form_row(form.message) }}
 			</div>
-
+			<div class ="form-rows">
+				{{ form_row(form.submit) }}
+			</div>
+			
 			{{ form_end(form) }}
-		</div>
-
 	</div>
 {% endblock %}

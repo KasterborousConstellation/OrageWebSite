@@ -51,3 +51,35 @@ h2{
     font-size: 1.5em;
     font-weight: 600;
 }
+.flash-error {
+    color: red;
+    font-weight: 600;
+    text-align: center;
+}
+.flash-success-container {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    list-style-type: none;
+}
+.flash-success {
+    color: green;
+    font-weight: 600;
+    text-align: center;
+}
+.flash-error-container{
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    list-style-type: none;
+}
+.flash-container{
+    width: clamp(300px, 50vw, 600px);
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 5px;
+}
