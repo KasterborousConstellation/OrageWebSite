@@ -2,7 +2,7 @@
 
 ![Symfony Version](https://img.shields.io/badge/Symfony-6.3%2B-blue.svg)
 ![PHP Version](https://img.shields.io/badge/PHP-8.2%2B-purple.svg)
-![CI Status](https://img.shields.io/github/actions/workflow/status/KasterborousConstellation/OrageWebSite/symfony.yml?branch=main&label=CI%20Build)
+![CI Status](https://img.shields.io/github/actions/workflow/status/KasterborousConstellation/OrageWebSite?branch=main&label=ORAGE)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 # SGBD
 ## Connexion au SGBD
