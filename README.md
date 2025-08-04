@@ -1,8 +1,8 @@
 # ORAGE
-![Symfony](https://img.shields.io/badge/Symfony-6.3-blue)  
-![PHP](https://img.shields.io/badge/PHP-8.2-purple)  
-![License](https://img.shields.io/badge/license-MIT-green)  
-![Repo Status](https://img.shields.io/badge/Status-Active-brightgreen) 
+![Symfony](https://img.shields.io/badge/Symfony-6.3-blue)
+![PHP](https://img.shields.io/badge/PHP-8.2-purple)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Repo Status](https://img.shields.io/badge/Status-Active-brightgreen)
 # SGBD
 ## Connexion au SGBD
 Pour faire fonctionner le SGDB, il suffit de connecter sa base de donnée dans le fichier .env puis ```DATABASE_URL```.  
