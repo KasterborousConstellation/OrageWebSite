@@ -31,7 +31,7 @@ php bin/console doctrine:migrations:migrate
 La base de donnée est en suite synchronisée avec la version présente dans les migrations.
 
 > [!TIP]
-> Si la base de donnée vient à être corrompue ou doit être changée. La procédure adaptée en developpement est:
+> Si la base de donnée vient à être corrompue ou doit être changée. La procédure adaptée en developpement est:  
     1) supprimer les tables   
     2) modifier les migrations par ex rajouter des entrées dans les tables (optionnel)  
     3) ```php bin/console doctrine:migrations:migrate```
