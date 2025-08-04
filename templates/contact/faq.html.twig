@@ -5,6 +5,27 @@
 {% block title "Contact Mail"%}
 {% block navbody %}
 <div class="headbody">
-<h1>FAQ</h1>
+{% include "component/backlink.html.twig" %}
+<div class="headtitle">
+    <h1>FAQ</h1>
+    <p>Vos questions ont peut-être déjà une réponse !</p>
+</div>
+<div class="faq-container">
+{% if faqQuestions is empty %}
+    <p>No FAQs available at the moment.</p>
+{% endif %}
+{% for faq in faqQuestions %}
+    <div class="faq-item" onclick="this.classList.toggle('faq-expand');">
+        <div class="faq-header">
+            <h2>{{ faq.question }}</h2>
+            <img src={{ asset("images/expand.svg") }} alt="FAQ Icon" class="faq-icon-expand">
+            <img src={{ asset("images/unexpand.svg") }} alt="FAQ Icon" class="faq-icon-unexpand">
+        </div>
+        
+        
+        <p>{{ faq.description }}</p>
+    </div>
+{% endfor %}
+</div>
 </div>
 {% endblock %}

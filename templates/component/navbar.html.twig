@@ -10,7 +10,7 @@
     <div class="navbar-item-container">
         {% set half = (navitems|length / 2 )|round %}
         {% for i in 0..half-1 %}
-             <div class="navbar-item {% if app.request.get('_route') starts with navitems[i][0] %}active{% endif %}">
+            <div class="navbar-item {% if app.request.get('_route') starts with navitems[i][0] %}active{% endif %}">
                 <a href="{{ url(navitems[i][0]) }}">{{navitems[i][1]}}</a>
             </div> 
         {% endfor %}
