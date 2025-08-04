@@ -1,8 +1,8 @@
-# Project Name
-
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
-![Build Status](https://img.shields.io/github/actions/workflow/status/KasterborousConstellation/OrageWebSite/symfony.yml?branch=main)
+# ORAGE
+![Symfony](https://img.shields.io/badge/Symfony-6.3-blue)
+![PHP](https://img.shields.io/badge/PHP-8.2-purple)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Repo Status](https://img.shields.io/badge/Status-Active-brightgreen)
 # SGBD
 ## Connexion au SGBD
 Pour faire fonctionner le SGDB, il suffit de connecter sa base de donnée dans le fichier .env puis ```DATABASE_URL```.  
@@ -30,7 +30,7 @@ php bin/console doctrine:migrations:migrate
 La base de donnée est en suite synchronisée avec la version présente dans les migrations.
 
 > [!TIP]
-> Si la base de donnée vient à être corrompue ou doit être changée. La procédure adaptée en developpement est:
+> Si la base de donnée vient à être corrompue ou doit être changée. La procédure adaptée en developpement est:  
     1) supprimer les tables   
     2) modifier les migrations par ex rajouter des entrées dans les tables (optionnel)  
     3) ```php bin/console doctrine:migrations:migrate```
