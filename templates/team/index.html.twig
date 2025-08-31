@@ -1,10 +1,52 @@
 {% extends 'pageWnavbar.html.twig' %}
 
 {% block title %}Notre équipe !{% endblock %}
+
 {% block stylesheets %}
-    
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/lemon-milk">
+    <link rel="stylesheet" href={{ asset("styles/team.css") }}>
 {% endblock %}
 
 {% block navbody %}
+    <div class="main-content">
+        {# Hero Section #}
+        <section class="hero" style="background-image:url('{{asset("images/library.webp")}}')" role="banner" aria-label="Image de la bibliothèque universitaire représentant notre lieu d'activité">
+            <div class="container">
+                <h1>Notre Équipe</h1>
+                <p>Rencontrez l'équipe derrière ORAGE</p>
+            </div>
+        </section>
 
+        {# Team Section #}
+        <section class="container">
+            <h2 class="section-title">Les Co-Présidents</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <h3 class="member-name">D.L. Bruno</h3>
+                    <span class="member-role">Co-Président & Gestionnaire</span>
+                    <p class="member-bio">Étudiant en 2ème année d'informatique à l'Université de Tours. placeholder description</p>
+                </div>
+
+                <div class="team-member">
+                    <h3 class="member-name">A. Paul</h3>
+                    <span class="member-role">Co-Président & Trésorier</span>
+                    <p class="member-bio">Étudiant en 2ème année d'informatique et mathématiques à l'Université de Tours. placeholder description</p>
+                </div>
+            </div>
+        </section>
+
+        {# About Section #}
+        <section class="container">
+            <div class="association-info">
+                <div class="info-content">
+                    <div class="info-text">
+                        <h3>À Propos d'ORAGE</h3>
+                        <p>L'Organisation pour la Réussite Académique Gratuite et Équitable (ORAGE) a été fondée en 2025 par A. Paul et D.L. Bruno, deux étudiants motivés par l'égalité des chances.</p>
+                        <p>Nous croyons fermement que l'éducation est le levier le plus puissant pour promouvoir l'égalité des chances.</p>
+                        <p>En tant qu'étudiants, nous comprenons les défis auxquels font face nos pairs et nous nous engageons à créer des solutions accessibles et efficaces pour tous.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 {% endblock %}
