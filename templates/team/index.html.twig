@@ -9,13 +9,11 @@
 
 {% block navbody %}
     <div class="main-content">
-        {# Hero Section #}
-        <section class="hero" style="background-image:url('{{asset("images/library.webp")}}')" role="banner" aria-label="Image de la bibliothèque universitaire représentant notre lieu d'activité">
-            <div class="container">
-                <h1>Notre Équipe</h1>
-                <p>Rencontrez l'équipe derrière ORAGE</p>
-            </div>
-        </section>
+        {# Banner Section#}
+        {% set banner_title = "Notre Équipe"%}
+        {% set banner_description = "<p>Rencontrez l'équipe derrière ORAGE</p>"%}
+        {% include "component/banner.html.twig"%}
+        
 
         {# Team Section #}
         <section class="container">

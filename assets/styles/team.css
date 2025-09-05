@@ -20,43 +20,7 @@ body {
     line-height: 1.6;
 }
 
-.container {
-    max-width: 80rem;
-    margin: 0 auto;
-    padding: 1.5rem;
-}
 
-/* Hero section */
-.hero {
-    text-align: center;
-    padding: 4rem 2rem;
-    margin-bottom: 3rem;
-    background-size: cover;
-    background-position: center;
-    border-radius: 0.5rem;
-    box-shadow: var(--card-shadow);
-}
-
-.hero .container {
-    background-color: rgba(0, 0, 0, 0.7); /* Amélioration du contraste */
-    border-radius: 10px;
-    padding: 2rem;
-    backdrop-filter: blur(5px);
-}
-
-.hero h1 {
-    font-family: 'LEMON MILK', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 3.75rem);
-    margin-bottom: 1.5rem;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Amélioration de la lisibilité */
-}
-
-.hero p {
-    font-size: clamp(1.25rem, 3vw, 1.5rem);
-    color: rgba(255, 255, 255, 0.9);
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Amélioration de la lisibilité */
-}
 
 /* Section titles */
 .section-title {

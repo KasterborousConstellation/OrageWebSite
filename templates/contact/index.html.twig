@@ -6,12 +6,15 @@
 {% endblock %}
 
 {% block navbody %}
+
+{# Banner Section#}
+<div class ="main-content"> 
+{% set banner_title = "Contactez-nous"%}
+{% set banner_description = "<p>Questions ou suggestions, nous sommes disponible toute la semaine. </p>"%}
+{% include "component/banner.html.twig"%}
 {% include 'component/flashRenderer.html.twig'%}
-<div class = "headtitle">
-    <h1>Contactez-nous</h1>
-    <p>Questions ou suggestions, nous sommes disponible toute la semaine. </p>
-</div>
-<div class ="etiquette-container">
+
+    <div class ="etiquette-container">
 <div class="etiquette">
     <a class ="reset-a" href={{ url("contact.faq") }}>
         <img class ="etiquette-icon" src={{ asset("images/faq.svg") }} alt="icon">
@@ -28,4 +31,7 @@
 </div>
 
 </div>
+</div>
+
+
 {% endblock %}
