@@ -10,7 +10,8 @@ final class LessonController extends AbstractController
 {
     #[Route('/lesson', name: 'lessons')]
     public function index(): Response
-    {
+    {   
+        $this->denyAccessUnlessGranted("ROLE_USER");
         return $this->render("lesson/index.html.twig");
     }
 }
