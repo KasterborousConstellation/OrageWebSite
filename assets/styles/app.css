@@ -115,14 +115,14 @@ h2{
 
 .hero h1 {
     font-family: 'LEMON MILK', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    font-size: clamp(1.3rem, 5vw, 3.75rem);
     margin-bottom: 1.5rem;
     color: white;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Amélioration de la lisibilité */
 }
 
 .hero p {
-    font-size: clamp(1.25rem, 3vw, 1.5rem);
+    font-size: clamp(1rem, 3vw, 1.5rem);
     color: rgba(255, 255, 255, 0.9);
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Amélioration de la lisibilité */
 }
