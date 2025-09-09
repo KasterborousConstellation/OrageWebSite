@@ -8,8 +8,11 @@
     </script>
     {#Balances items in the two containers#}
     <div class="navbar-item-container">
+        <div class="navbar-item profile-container">
+            <a href="{{ url('app_login') }}"><img class="orage-icon"src = {{asset('images/person-circle.svg')}}><span>Connexion</span></a>
+        </div>
         {% set half = (navitems|length / 2 )|round %}
-        {% for i in 0..half-1 %}
+        {% for i in 0..half-2 %}
             <div class="navbar-item {% if app.request.get('_route') starts with navitems[i][0] %}active{% endif %}">
                 <a href="{{ url(navitems[i][0]) }}">{{navitems[i][1]}}</a>
             </div> 
@@ -20,7 +23,7 @@
         <p>ORAGE</p>
     </div>
     <div class="navbar-item-container">
-        {% for i in half..navitems|length -1 %}
+        {% for i in half-1..navitems|length -1 %}
             <div class="navbar-item {% if app.request.get('_route') starts with navitems[i][0] %}active{% endif %}">
                 <a href="{{ url(navitems[i][0]) }}">{{navitems[i][1]}}</a>
             </div> 
