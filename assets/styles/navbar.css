@@ -6,22 +6,21 @@
 .navbar{
     display: flex;
     position: fixed;
-    width: 100%;
+    width: 100vw;
     left: 0;
     top: 0;
     flex-direction: row;
     background-color: var(--orage-navbar-color);
     height: var(--navbar-height);
     margin: 0;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 0;
+    padding-right: 0;
     align-items: center;
     justify-content: space-around;
     box-shadow: 0 12px 8px rgba(0, 0, 0, 0.1);
     z-index: 10;
-    
-    
 }
+
 .navbody{
     margin-top: var(--navbar-height);
 }
@@ -46,7 +45,7 @@
 .profile-container:hover{
     background-color: #364fc7;
 }
-.navbar-item:hover{
+.navbar-item:not(.profile-container):hover{
     transform: rotate(1deg) scale(1.075);
 }
 .active {
@@ -114,6 +113,26 @@
 }
 .navbar-mobile{
     visibility: hidden;
+}
+.profile-dropdown{
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--orage-navbar-color);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    z-index: 100;
+}
+.profile-dropdown a{
+    width: 100%;
+    padding: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 0;
 }
 /* MOBILE MODE*/
 @media (max-width: 850px) {
@@ -199,9 +218,25 @@
         padding-bottom: 10px;
         text-overflow: clip;
         white-space: nowrap;
-        overflow: hidden;
+        overflow: visible;
         
     }
+    .profile-dropdown{
+        position: absolute;
+        top: 0%;
+        right: 100%;
+        background-color: var(--orage-navbar-color);
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        z-index: 100;
+    }
+    .profile-container{
+        cursor: pointer;
+    }   
 }
 .orage-icon{
     width: 1.5em;
@@ -210,3 +245,14 @@
     vertical-align: middle;
     filter: invert(100%);
 }
+
+.profile-dropdown a:hover{
+    background-color: #4c566a;
+}
+
+/* Show dropdown when profile-container is focused within */
+.profile-container:focus-within .profile-dropdown , .profile-container:hover .profile-dropdown, .button-profile-active .profile-dropdown{
+    display: flex;
+    border: 0;
+}
+

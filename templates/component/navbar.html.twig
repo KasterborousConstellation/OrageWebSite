@@ -1,18 +1,43 @@
+{% if app.user %}
+    {% set orage_text = "Mon Profil" %}
+    {% set path = "app_profile" %}
+    {% if is_granted("ROLE_ADMIN") %}
+    {% set profile ="images/admin.svg"%}
+    {% else %}
+    {% set profile ="images/signed.svg"%}
+    {% endif %}
+{% else %}
+    {% set orage_text = "Connexion" %}
+    {% set path = "app_login" %}
+    {% set profile ="images/unsigned.svg"%}
+{% endif %}
 <div id = "navbar" class = "navbar">
     
     {% set navitems = [["home","Accueil"],["lessons","Cours"],["contact","Contact"],["team","Notre Equipe"]] %}
     <div id = "nav-hamburger" class ="navbar-mobile">
         <img src={{ asset("images/list.svg") }} class ="logo">
     </div>
-    <script src={{ asset("JS/navbar.js")}}>
+    <script defer src={{ asset("JS/navbar.js")}}>
     </script>
     {#Balances items in the two containers#}
     <div class="navbar-item-container">
-        <div class="navbar-item profile-container">
-            <a href="{{ url('app_login') }}"><img class="orage-icon"src = {{asset('images/person-circle.svg')}}><span>Connexion</span></a>
+        <div class="navbar-item profile-container {% if app.request.get('_route') == path %}active{% endif %}">
+            <a class="button-profile">
+                <img src={{ asset(profile) }} alt="profile" class ="orage-icon">
+                <span>{{ orage_text }}</span>
+            </a>
+            {% if app.user %}
+                <div class="profile-dropdown">
+                    {% if is_granted("ROLE_ADMIN") %}
+                        <a href="{{ url('app_admin_panel') }}">Dashboard Admin</a>
+                    {% endif %}
+                    <a href="{{ url('app_profile') }}">Mon Profil</a>
+                    <a href="{{ url('app_logout') }}">Déconnexion</a>
+                </div>
+            {% endif %}
         </div>
         {% set half = (navitems|length / 2 )|round %}
-        {% for i in 0..half-2 %}
+        {% for i in 0..half-1 %}
             <div class="navbar-item {% if app.request.get('_route') starts with navitems[i][0] %}active{% endif %}">
                 <a href="{{ url(navitems[i][0]) }}">{{navitems[i][1]}}</a>
             </div> 
@@ -23,11 +48,10 @@
         <p>ORAGE</p>
     </div>
     <div class="navbar-item-container">
-        {% for i in half-1..navitems|length -1 %}
+        {% for i in half..navitems|length -1 %}
             <div class="navbar-item {% if app.request.get('_route') starts with navitems[i][0] %}active{% endif %}">
                 <a href="{{ url(navitems[i][0]) }}">{{navitems[i][1]}}</a>
             </div> 
         {% endfor %}
     </div>
-    
 </div>

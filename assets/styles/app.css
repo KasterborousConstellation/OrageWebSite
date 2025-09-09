@@ -2,6 +2,9 @@ body {
     padding: 0;
     margin: 0;
     background-color: var(--orage_background);
+    height: 100%;
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
 }
 h2{
     font-weight: 500;
