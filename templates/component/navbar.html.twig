@@ -22,7 +22,7 @@
     {#Balances items in the two containers#}
     <div class="navbar-item-container">
         <div class="navbar-item profile-container {% if app.request.get('_route') == path %}active{% endif %}">
-            <a class="button-profile">
+            <a {% if not app.user %} href={{url("app_login")}} {% endif %} class="button-profile">
                 <img src={{ asset(profile) }} alt="profile" class ="orage-icon">
                 <span>{{ orage_text }}</span>
             </a>

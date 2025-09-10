@@ -30,6 +30,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+    #[ORM\Column(length: 180)]
+    private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     private ?string $FirstName = null;
@@ -37,6 +39,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $LastName = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -138,6 +152,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(string $LastName): static
     {
         $this->LastName = $LastName;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

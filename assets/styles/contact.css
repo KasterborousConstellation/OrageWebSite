@@ -1,43 +1,12 @@
-.headbody {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
 
-.etiquette-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    height: max-content;
-    flex-wrap: wrap;
-}
 
-.etiquette {
-    width: max(200px, 15vw);
-    max-width: 300px;
-    min-width: 200px;
+
+.faq-icon-expand, .faq-icon-unexpand {
+    cursor: pointer;
+    transition: transform 0.2s;
+    filter: opacity(0.8);
     aspect-ratio: 1/1;
-    height: auto;
-    margin: 10px;
-    padding: auto;
-    text-align: center;
-    background-color: #fff;
-    border: 1px solid lightgrey;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    overflow: visible;
-    box-sizing: border-box;
-    font-size: calc(0.9*clamp(0.9rem, 2vw, 1.2rem));
-    line-height: 1.2;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
-    border-radius: 5px;
 }
-
-
 .etiquette-icon {
     width: 40px;
 }
@@ -134,7 +103,7 @@
 .faq-item h2 {
     position: relative;
     padding-bottom: 0.5em;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: 550;
 }
 
@@ -150,7 +119,7 @@
     margin: 0;
     padding: 0.5em 0;
     line-height: 1.5;
-    font-size: 1.3em;
+    font-size: 1.1rem;
     font-weight: 550;
     color: black;
 }
@@ -261,4 +230,34 @@
     resize: none;
     min-height: 100px;
     width: 80%;
+}
+.etiquette {
+    width: max(200px, 15vw);
+    max-width: 300px;
+    min-width: 200px;
+    aspect-ratio: 1/1;
+    height: auto;
+    margin: 10px;
+    padding: auto;
+    text-align: center;
+    background-color: #fff;
+    border: 1px solid lightgrey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    overflow: visible;
+    box-sizing: border-box;
+    font-size: calc(0.9*clamp(0.9rem, 2vw, 1.2rem));
+    line-height: 1.2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
+    border-radius: 5px;
+}
+.etiquette-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: max-content;
+    flex-wrap: wrap;
 }
