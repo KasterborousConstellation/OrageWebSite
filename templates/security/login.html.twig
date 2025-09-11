@@ -1,16 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'pageWnavbar.html.twig' %}
 
 {% block title %}Connexion{% endblock %}
 {% block stylesheets %}
     {# Lien vers le fichier CSS spécifique à la page d'accueil #}
     <link rel="stylesheet" href={{ asset("styles/login.css") }}>
 {% endblock %}
-{% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+{% block navbody %}
 
+<form method="post">
+    {% include "component/flashRenderer.html.twig" %}
     
     <div class = "login-container">
         {% if app.user %}
@@ -33,7 +31,7 @@
         <button class="orage-btn" type="submit">
             Connexion
         </button>
-    
+        
     </div>
     
 </form>
