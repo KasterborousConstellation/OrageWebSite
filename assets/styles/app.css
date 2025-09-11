@@ -136,7 +136,12 @@ h2{
     padding: 2rem;
     backdrop-filter: blur(5px);
 }
-
+.normalized-button{
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+}
 .hero h1 {
     font-family: 'LEMON MILK', sans-serif;
     font-size: clamp(1.3rem, 5vw, 3.75rem);
@@ -150,5 +155,27 @@ h2{
     color: rgba(255, 255, 255, 0.9);
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Amélioration de la lisibilité */
 }
-
-
+.category{
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+.category::after{
+    content: '';
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--orage_dark_blue);
+    opacity: 0.95;
+    pointer-events: none;
+}
+.profile-dropdown ul li{
+    list-style: none;
+    margin: 0;
+}
+.profile-dropdown ul{
+    margin: 0;
+    padding: 0;
+}

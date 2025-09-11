@@ -21,18 +21,20 @@
     </script>
     {#Balances items in the two containers#}
     <div class="navbar-item-container">
-        <div class="navbar-item profile-container {% if app.request.get('_route') == path %}active{% endif %}">
+        <div class="navbar-item profile-container">
             <a {% if not app.user %} href={{url("app_login")}} {% endif %} class="button-profile">
                 <img src={{ asset(profile) }} alt="profile" class ="orage-icon">
                 <span>{{ orage_text }}</span>
             </a>
             {% if app.user %}
                 <div class="profile-dropdown">
+                <ul>
                     {% if is_granted("ROLE_ADMIN") %}
-                        <a href="{{ url('app_admin_panel') }}">Dashboard Admin</a>
+                        <li><a href="{{ url('app_admin_panel') }}">Dashboard Admin</a></li>
                     {% endif %}
-                    <a href="{{ url('app_profile') }}">Mon Profil</a>
-                    <a href="{{ url('app_logout') }}">Déconnexion</a>
+                    <li><a href="{{ url('app_profile') }}">Mon Profil</a></li>
+                    <li><a href="{{ url('app_logout') }}">Déconnexion</a></li>
+                </ul>
                 </div>
             {% endif %}
         </div>
