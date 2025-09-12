@@ -57,4 +57,29 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findAllUser() : array{
+        return $this->createQueryBuilder('u')
+            ->select('u.username','u.email','u.roles')
+            ->getQuery()
+            ->getResult();
+    }
+    public function translateRoles($users) : array {
+        $roleMap = [
+            'ROLE_USER' => 'User',
+            'ROLE_ADMIN' => 'Admin'
+        ];
+
+        foreach ($users as &$user) {
+            if (isset($user['roles']) && is_array($user['roles'])) {
+                $translatedRoles = array_map(function($role) use ($roleMap) {
+                    return $roleMap[$role] ?? $role;
+                }, $user['roles']);
+                $user['roles'] = implode(', ', $translatedRoles);
+            } else {
+                $user['roles'] = '';
+            }
+        }
+
+        return $users;
+    }
 }
