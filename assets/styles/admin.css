@@ -36,9 +36,18 @@
     border-collapse: collapse;
     margin-top: 20px;
 }
-.user-table th{
+.user-table th,.user-table th a{
     background-color: var(--orage_dark_blue);
     color: white;
+    text-decoration: none;
+}
+.asc::before{
+    content: '🔼';
+    filter: hue-rotate(10deg);
+}
+.desc::before{
+    content:'🔽';
+    filter: hue-rotate(10deg);
 }
 .user-table th, .user-table td{
     padding: 8px;
