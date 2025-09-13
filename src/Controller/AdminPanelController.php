@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
+use App\Repository\UserRepository;
 final class AdminPanelController extends AbstractController
 {
     #[Route('/admin/panel', name: 'app_admin_panel')]
@@ -20,7 +20,8 @@ final class AdminPanelController extends AbstractController
     public function users(EntityManagerInterface $em): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        $users = $em->getRepository('App\Entity\User')->findAll();
+        $repo = $em->getRepository('App\Entity\User');
+        $users = $repo->findAll();
         $users = array_map(function($user) {
             return [
                 'username' => $user->getUserName(),

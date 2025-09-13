@@ -47,11 +47,13 @@ class OrageAuthentificatorAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
-
+        if(in_array('ROLE_ADMIN', $token->getRoleNames(), true)){
+            return new RedirectResponse($this->urlGenerator->generate('app_admin_panel'));
+        }
         // For example:
         return new RedirectResponse($this->urlGenerator->generate('home'));
     }
-
+    
     protected function getLoginUrl(Request $request): string
     {
         return $this->urlGenerator->generate(self::LOGIN_ROUTE);
