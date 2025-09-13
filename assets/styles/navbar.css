@@ -41,7 +41,7 @@
     color: #f3f0ff;
     transition: transform 0.2s ease;
 }
-.navbar-item:not(.active):not(.profile-container):hover{
+.navbar-item:not(.orage-active):not(.profile-container):hover{
     background-color: #4c566a;
 }
 .profile-container:hover{
