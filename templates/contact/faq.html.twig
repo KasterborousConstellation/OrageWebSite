@@ -1,4 +1,4 @@
-{% extends "pageWnavbar.html.twig" %}
+{% extends "oragePage.html.twig" %}
 {% block stylesheets %}
     <link rel="stylesheet" href={{ asset("styles/contact.css") }}>
 {% endblock %}
@@ -21,8 +21,8 @@
             <img src={{ asset("images/expand.svg") }} alt="FAQ Icon" class="faq-icon-expand">
             <img src={{ asset("images/unexpand.svg") }} alt="FAQ Icon" class="faq-icon-unexpand">
         </div>
-        
-        
+
+
         <p>{{ faq.description }}</p>
     </div>
 {% endfor %}

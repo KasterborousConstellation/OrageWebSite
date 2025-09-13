@@ -1,7 +1,9 @@
 :root{
     --navbar-height: max(100px,6vw);
+    --footer-height : 150px;
     --navbar-animation-delay: 1s;
     --navbar-animation-bezier: ease;
+
 }
 .orage-navbar{
     display: flex;
@@ -185,7 +187,7 @@
         align-items: left;
         flex-direction: column;
         justify-content: left;
-        position: absolute;
+        position: fixed;
         right: 0;
         top: 0;
         left: unset;
@@ -272,3 +274,13 @@
 
     cursor: pointer;
 }
+footer{
+    width: 100%;
+    height: var(--footer-height);
+    margin-bottom: 0;
+    padding-bottom: 0;
+    position: relative;
+    top: 100%;
+    background: var(--orage-navbar-color);
+}
+

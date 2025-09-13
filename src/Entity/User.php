@@ -94,7 +94,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return array_unique($roles);
     }
-
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable(); // current date/time
+    }
     /**
      * @param list<string> $roles
      */

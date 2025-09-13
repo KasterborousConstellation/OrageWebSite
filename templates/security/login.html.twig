@@ -1,4 +1,4 @@
-{% extends 'pageWnavbar.html.twig' %}
+{% extends 'oragePage.html.twig' %}
 
 {% block title %}Connexion{% endblock %}
 {% block stylesheets %}
@@ -31,7 +31,7 @@
         <button class="orage-btn" type="submit">
             Connexion
         </button>
-
+        <a class="btn" href ={{ path("app_register") }}>Créer un compte</a>
     </div>
 
 </form>
