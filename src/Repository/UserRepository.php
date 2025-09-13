@@ -60,12 +60,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //            ->getOneOrNullResult()
     //        ;
     //    }
-    public function findAllUser() : array{
-        return $this->createQueryBuilder('u')
-            ->select('u.username','u.email','u.roles')
-            ->getQuery()
-            ->getResult();
-    }
     public function translateRoles(array $roles) : array
     {
         $roleMap = [
@@ -80,12 +74,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             $roles);
         return $translatedRoles;
     }
-    public function paginateUserData($request) : PaginationInterface
+    public function paginateUserData($request,$param) : PaginationInterface
     {
         $page = $request->query->getInt('page', 1);
         $limit = 10;
         return $this->paginator->paginate(
-            $this->createQueryBuilder('u'),
+            $this->createQueryBuilder('u')
+            ->select('u.id','u.username','u.email','u.roles')
+            ->where('u.roles LIKE :param or u.username LIKE :param or u.email LIKE :param')
+            ->setParameter('param', '%'.$param.'%')
+            ,
             $page,
             $limit,
             [
@@ -95,5 +93,13 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
             ]
         );
+    }
+    public function getUserByEmailorUsername(string $emailOrUsername) : ?User{
+        return $this->createQueryBuilder('u')
+            ->where('u.email = :param or u.username = :param')
+            ->setParameter('param', $emailOrUsername)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleResult();
     }
 }

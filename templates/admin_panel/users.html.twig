@@ -2,12 +2,11 @@
 
 
 {% block admincontent %}
+    {% include "component/flashRenderer.html.twig" %}
     <h1 class ="headtitle">Gestion des utilisateurs</h1>
     <p>Cette section vous permet de gérer les utilisateurs de la plateforme. Vous pouvez voir la liste des utilisateurs, modifier leurs rôles, ou supprimer des comptes si nécessaire.</p>
     <!-- Ajoutez ici le tableau ou la liste des utilisateurs avec les actions possibles -->
-    <input id="test" placeholder="Rechercher" type ="text">
-    Rechercher
-    </input>
+    {{ form(form,{attr: {class : 'd-flex justify-content-start'}}) }}
     <table class="user-table">
         <thead>
             <tr>
@@ -31,7 +30,7 @@
                 </td>
                 <td>
                     <a class="orage-btn">Modifier</a>
-                    <a class="orage-btn-warning" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</a>
+                    <a href={{ path('app_admin_users_delete',{ id : user.id})}} class="orage-btn-warning" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</a>
                 </td>
             </tr>
         {% endfor %}

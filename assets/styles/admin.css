@@ -32,6 +32,7 @@
     align-items: center;
 }
 .user-table{
+    max-width: 1500px;
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -58,4 +59,14 @@
 }
 .user-table tr:nth-child(odd){
     background-color: #e8e8fa;
+}
+@media (max-width: 850px) {
+    .sidebar-group{
+        flex-direction: row;
+    }
+    .navbody{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
 }

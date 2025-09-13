@@ -2,28 +2,71 @@
 
 namespace App\Controller;
 
-use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
+use App\Form\SearchFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted("ROLE_ADMIN")]
 final class AdminPanelController extends AbstractController
 {
     #[Route('/admin/panel', name: 'app_admin_panel')]
-    public function index(): Response
+    public function index(EntityManagerInterface $em,UserPasswordHasherInterface  $hasher): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+
+        /*$user = new User();
+        $user->setUsername('User')->setRoles(['ROLE_USER'])->setEmail("test@gmail.com");
+        $hashedPassword = $hasher->hashPassword(
+            $user,
+            "0000"
+        );
+        $user->setPassword($hashedPassword);
+        $user->setFirstName("Test");
+        $user->setLastName("User");
+        $user->setCreatedAt(new \DateTimeImmutable());
+        $em->persist($user);
+        $em->flush();
+        */
+
         return $this->render('admin_panel/index.html.twig');
     }
     #[Route('/admin/users', name: 'app_admin_users')]
     public function users(EntityManagerInterface $em,Request $request ): Response
     {
-        dump($request->get("test","none"))  ;
+
+        $form = $this->createForm(SearchFormType::class);
+        $form->handleRequest($request);
+        $data ="";
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->get("q")->getData();
+        }
         $repo = $em->getRepository("App\Entity\User");
-        $paginator = $repo->paginateUserData($request);
-        return $this->render('admin_panel/users.html.twig',["users" => $paginator]);
+        $paginator = $repo->paginateUserData($request, $data);
+        return $this->render('admin_panel/users.html.twig',
+            [
+                "users" => $paginator,
+                "form" => $form->createView()
+                ]);
+    }
+    #[Route('/admin/users/delete/{id}', name: 'app_admin_users_delete', requirements: ['id'=> '\d+'] )]
+    public function deleteUser(EntityManagerInterface $em,Request $request , int $id) :RedirectResponse{
+
+        if($this->getUser()->getId() == $id){
+            $this->addFlash("error", "Impossible de supprimer son propre compte!");
+            return $this->redirectToRoute('app_admin_users');
+        }
+        $repo = $em->getRepository("App\Entity\User");
+        $user = $repo->find($id);
+        $username = $user->getUsername();
+        $em->remove($user);
+        $em->flush();
+        $this->addFlash("success","L'utilisateur $username a bien été supprimé.");
+        return $this->redirectToRoute('app_admin_users');
     }
 }

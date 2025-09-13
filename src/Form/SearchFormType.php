@@ -3,15 +3,18 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SearcFormType extends AbstractType
+class SearchFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->setMethod('GET')
             ->add('q',null,['label' =>false, 'required'=>false , 'attr' => ['placeholder' => 'Rechercher...']])
+            ->add("submit",SubmitType::class,['label'=>'>', 'attr' =>['hidden' => true]])
         ;
     }
 

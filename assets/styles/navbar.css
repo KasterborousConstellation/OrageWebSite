@@ -185,7 +185,7 @@
         align-items: left;
         flex-direction: column;
         justify-content: left;
-        position: fixed;
+        position: absolute;
         right: 0;
         top: 0;
         left: unset;
