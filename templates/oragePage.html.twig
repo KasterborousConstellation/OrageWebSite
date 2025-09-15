@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    {% include "component/navbar.html.twig" %}
+    <div class="body-wrapper">
+        <div class ="navbody">
+            {% block navbody %}
+            {% endblock %}
+        </div>
+
+
+    </div>
+    {% include "component/footer.html.twig" %}
+{% endblock %}

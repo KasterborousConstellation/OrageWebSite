@@ -1,4 +1,4 @@
-{% extends 'pageWnavbar.html.twig' %}
+{% extends 'oragePage.html.twig' %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/profile.css') }}">
 {% endblock %}
@@ -6,7 +6,7 @@
 
 {% block navbody %}
 <div class="headbody">
-    
+
     <div class="usercontainer">
         <h1 class ="headtitle orage-lg">Mon profil</h1>
         <h2 class ="category">Informations personnelles</h2>
@@ -17,15 +17,15 @@
         <!-- Ajoutez d'autres informations utilisateur ici -->
         <h2 class ="category">Préférences de compte</h2>
         <p>Gérez vos préférences ici.</p>
-        
+
         <h2 class ="category">Sécurité</h2>
         <p>Changez votre mot de passe ou configurez l'authentification à deux facteurs.</p>
-        
+
         <h2 class ="category">Actions du compte</h2>
         <div class ="button-container">
             <button class="orage-btn orage-sm">Modifier le profil</button>
             <button class="orage-btn-warning orage-sm">Supprimer le compte</button>
         </div>
         </div>
-    
+
 {% endblock %}

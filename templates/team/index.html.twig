@@ -1,9 +1,9 @@
-{% extends 'pageWnavbar.html.twig' %}
+{% extends 'oragePage.html.twig' %}
 
 {% block title %}Notre équipe !{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/lemon-milk">
+    
     <link rel="stylesheet" href={{ asset("styles/team.css") }}>
 {% endblock %}
 
@@ -13,7 +13,7 @@
         {% set banner_title = "Notre Équipe"%}
         {% set banner_description = "<p>Rencontrez l'équipe derrière ORAGE</p>"%}
         {% include "component/banner.html.twig"%}
-        
+
 
         {# Team Section #}
         <section class="container">

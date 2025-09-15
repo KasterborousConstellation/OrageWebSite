@@ -1,4 +1,4 @@
-{% extends 'pageWnavbar.html.twig' %}
+{% extends 'oragePage.html.twig' %}
 
 {% block title %}Connexion{% endblock %}
 {% block stylesheets %}
@@ -9,7 +9,7 @@
 
 <form method="post">
     {% include "component/flashRenderer.html.twig" %}
-    
+
     <div class = "login-container">
         {% if app.user %}
         <div class="mb-3">
@@ -17,7 +17,7 @@
         </div>
         {% endif %}
         <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
-        <label for="inputUsername">Nom d'Utilisateur</label>
+        <label for="inputUsername">Nom d'Utilisateur ou Email</label>
         <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
         <label for="inputPassword">Mot de passe</label>
         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
@@ -31,8 +31,8 @@
         <button class="orage-btn" type="submit">
             Connexion
         </button>
-        
+        <a class="btn" href ={{ path("app_register") }}>Créer un compte</a>
     </div>
-    
+
 </form>
 {% endblock %}

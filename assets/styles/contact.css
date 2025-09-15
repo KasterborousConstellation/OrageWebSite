@@ -125,8 +125,7 @@
     position: relative;
     width: 100%;
     flex-direction: row;
-    height: fit-content;
-    padding: auto;
+    height: 70px;
     justify-content: center;
     overflow-wrap: break-word;
 }

@@ -56,7 +56,7 @@ h2{
     display: inline-block;
     padding: 1em;
     font-size: 1em;
-    color: white;   
+    color: white;
     background-color: var(--orage_red);
     border: none;
     border-radius: 5px;
@@ -170,6 +170,7 @@ h2{
     background: var(--orage_dark_blue);
     opacity: 0.95;
     pointer-events: none;
+
 }
 .profile-dropdown ul li{
     list-style: none;
@@ -178,4 +179,15 @@ h2{
 .profile-dropdown ul{
     margin: 0;
     padding: 0;
+}
+.body-wrapper{
+    min-height: calc(100vh - var(--navbar-height) - var(--footer-height));
+}
+@media(max-width: 850px){
+
+    .body-wrapper{
+        min-height: calc(100vh - var(--footer-height));
+
+    }
+
 }

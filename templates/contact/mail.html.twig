@@ -1,4 +1,4 @@
-{% extends 'pageWnavbar.html.twig' %}
+{% extends 'oragePage.html.twig' %}
 {% block stylesheets %}
 	<link rel="stylesheet" href="{{ asset('styles/contact.css') }}"/>
 {% endblock %}
@@ -25,7 +25,7 @@
 			<div class ="form-rows">
 				{{ form_row(form.submit) }}
 			</div>
-			
+
 			{{ form_end(form) }}
 	</div>
 {% endblock %}

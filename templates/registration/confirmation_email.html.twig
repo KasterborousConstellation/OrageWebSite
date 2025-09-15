@@ -1,0 +1,11 @@
+<h1>ORAGE vous souhaite la bienvenue !</h1>
+
+<p>
+    Pour vérifier votre email, cliquez sur le lien suivant : <br><br>
+    <a href="{{ signedUrl|raw }}">Confirmer mon email</a>.
+    Ce lien expire dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+</p>
+
+<p>
+    Merci !
+</p>

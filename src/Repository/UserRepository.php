@@ -5,6 +5,9 @@ namespace App\Repository;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use \Doctrine\ORM\Tools\Pagination\Paginator;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -14,7 +17,7 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginator)
     {
         parent::__construct($registry, User::class);
     }
@@ -57,29 +60,46 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     //            ->getOneOrNullResult()
     //        ;
     //    }
-    public function findAllUser() : array{
-        return $this->createQueryBuilder('u')
-            ->select('u.username','u.email','u.roles')
-            ->getQuery()
-            ->getResult();
-    }
-    public function translateRoles($users) : array {
+    public function translateRoles(array $roles) : array
+    {
         $roleMap = [
             'ROLE_USER' => 'User',
             'ROLE_ADMIN' => 'Admin'
         ];
 
-        foreach ($users as &$user) {
-            if (isset($user['roles']) && is_array($user['roles'])) {
-                $translatedRoles = array_map(function($role) use ($roleMap) {
-                    return $roleMap[$role] ?? $role;
-                }, $user['roles']);
-                $user['roles'] = implode(', ', $translatedRoles);
-            } else {
-                $user['roles'] = '';
-            }
-        }
 
-        return $users;
+
+        $translatedRoles = array_map(function($role) use ($roleMap) {
+            return $roleMap[$role] ?? "";},
+            $roles);
+        return $translatedRoles;
+    }
+    public function paginateUserData($request,$param) : PaginationInterface
+    {
+        $page = $request->query->getInt('page', 1);
+        $limit = 10;
+        return $this->paginator->paginate(
+            $this->createQueryBuilder('u')
+            ->select('u.id','u.username','u.email','u.roles')
+            ->where('u.roles LIKE :param or u.username LIKE :param or u.email LIKE :param')
+            ->setParameter('param', '%'.$param.'%')
+            ,
+            $page,
+            $limit,
+            [
+                'distinc' => true,
+                'sortFieldAllowList' => ['u.username'],
+
+
+            ]
+        );
+    }
+    public function getUserByEmailorUsername(string $emailOrUsername) : ?User{
+        return $this->createQueryBuilder('u')
+            ->where('u.email = :param or u.username = :param')
+            ->setParameter('param', $emailOrUsername)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getSingleResult();
     }
 }

@@ -1,0 +1,50 @@
+{% extends 'oragePage.html.twig' %}
+
+{% block title %}Register{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href={{ asset("styles/login.css") }}>
+{% endblock %}
+{% block navbody     %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+
+
+
+    {{ form_errors(registrationForm) }}
+    <div class="login-container gap-3">
+    <h1 class="headbody">Créer un compte</h1>
+
+
+
+    {{ form_start(registrationForm , {attr : {class : "d-flex flex-column gap-2 align-items-center"}}) }}
+
+        <div class="d-flex justify-content-center register-group">
+            {{ form_row(registrationForm.username, {attr: {class : "d-flex flex-column"}}) }}
+        </div>
+        <p class="category w-100"> Information Personnelles </p>
+        <div class="d-flex gap-3 register-group">
+            {{ form_row(registrationForm.last_name, {attr: {class : "d-flex flex-column"}}) }}
+            {{ form_row(registrationForm.first_name, {attr: {class : "d-flex flex-column"}}) }}
+
+        </div>
+        <p class="text-muted">Les informations personnelles ne sont pas affichés publiquement.
+            <br>Les options de confidentialités seront disponible dans votre profil.</p>
+        <p class="category w-100" > Sécurité</p>
+        <div class ="d-flex gap-3 register-group">
+            {{ form_row(registrationForm.email, {attr: {class : "d-flex flex-column"}}) }}
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Mot de passe', attr : {class :"d-flex flex-column"}
+            }) }}
+
+        </div>
+        <p class="category w-100"> Confirmation </p>
+        <div class="d-flex gap-3 flex-column align-items-center register-group">
+            {{ form_row(registrationForm.agreeTerms) }}
+            <div>
+                <button type="submit" class="orage-btn">Créer un compte</button>
+            </div>
+        </div>
+    {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

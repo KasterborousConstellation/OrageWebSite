@@ -11,11 +11,11 @@
     {% set path = "app_login" %}
     {% set profile ="images/unsigned.svg"%}
 {% endif %}
-<div id = "navbar" class = "navbar">
-    
+<div id = "navbar" class = "orage-navbar">
+
     {% set navitems = [["home","Accueil"],["lessons","Cours"],["contact","Contact"],["team","Notre Equipe"]] %}
     <div id = "nav-hamburger" class ="navbar-mobile">
-        <img src={{ asset("images/list.svg") }} class ="logo">
+        <img src={{ asset("images/list.svg") }} class=logo alt="logo">
     </div>
     <script defer src={{ asset("JS/navbar.js")}}>
     </script>
@@ -40,9 +40,9 @@
         </div>
         {% set half = (navitems|length / 2 )|round %}
         {% for i in 0..half-1 %}
-            <div class="navbar-item {% if app.request.get('_route') starts with navitems[i][0] %}active{% endif %}">
+            <div class="navbar-item {% if app.request.get('_route') starts with navitems[i][0] %}orage-active{% endif %}">
                 <a href="{{ url(navitems[i][0]) }}">{{navitems[i][1]}}</a>
-            </div> 
+            </div>
         {% endfor %}
     </div>
     <div class ="navbarlogo">
@@ -51,9 +51,9 @@
     </div>
     <div class="navbar-item-container">
         {% for i in half..navitems|length -1 %}
-            <div class="navbar-item {% if app.request.get('_route') starts with navitems[i][0] %}active{% endif %}">
+            <div class="navbar-item {% if app.request.get('_route') starts with navitems[i][0] %}orage-active{% endif %}">
                 <a href="{{ url(navitems[i][0]) }}">{{navitems[i][1]}}</a>
-            </div> 
+            </div>
         {% endfor %}
     </div>
 </div>

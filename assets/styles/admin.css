@@ -32,13 +32,23 @@
     align-items: center;
 }
 .user-table{
+    max-width: 1500px;
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
-.user-table th{
+.user-table th,.user-table th a{
     background-color: var(--orage_dark_blue);
     color: white;
+    text-decoration: none;
+}
+.asc::before{
+    content: '🔼';
+    filter: hue-rotate(10deg);
+}
+.desc::before{
+    content:'🔽';
+    filter: hue-rotate(10deg);
 }
 .user-table th, .user-table td{
     padding: 8px;
@@ -49,4 +59,14 @@
 }
 .user-table tr:nth-child(odd){
     background-color: #e8e8fa;
+}
+@media (max-width: 850px) {
+    .sidebar-group{
+        flex-direction: row;
+    }
+    .navbody{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
 }
