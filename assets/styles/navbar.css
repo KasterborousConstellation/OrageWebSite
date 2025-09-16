@@ -5,6 +5,7 @@
     --navbar-animation-bezier: ease;
 
 }
+
 .orage-navbar{
     display: flex;
     position: fixed;
