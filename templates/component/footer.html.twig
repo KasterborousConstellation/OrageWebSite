@@ -1,4 +1,27 @@
-<footer>
+{% block footer %}
 
+    <footer>
+        <div class="d-flex flex-row justify-content-evenly align-items-center footer-container w-100 h-100">
+            {% set navitems = [["home","Accueil"],["lessons","Cours"],["contact","Contact"],["team","Notre Equipe"]] %}
+            <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                {% for items in navitems %}
+                    <a class="text-light text-decoration-none" href="{{ url(items[0]) }}">{{ items[1] }}</a>
+                {% endfor %}
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                <img src={{ asset("images/logo.png") }} alt="logo" class="logo">
+                <p class="text-center text-light">&copy; 2025 ORAGE. Tous droits réservés.</p>
+            </div>
+            <div class="d-flex flex-column">
+                <a target="_blank" class="text-light text-decoration-none" href="{{ url('app_terms') }}">Conditions
+                    d'utilisation</a>
+                <a target="_blank" class="text-light text-decoration-none" href="{{ url('app_privacy') }}">Politique de
+                    confidentialité</a>
+                <a target="_blank" class="text-light text-decoration-none" href="{{ url('app_cookies') }}">Politique de
+                    cookies</a>
+            </div>
+        </div>
 
-</footer>
+    </footer>
+
+{% endblock %}

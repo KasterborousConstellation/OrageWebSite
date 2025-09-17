@@ -56,13 +56,16 @@ final class AdminPanelController extends AbstractController
     }
     #[Route('/admin/users/delete/{id}', name: 'app_admin_users_delete', requirements: ['id'=> '\d+'] )]
     public function deleteUser(EntityManagerInterface $em,Request $request , int $id) :RedirectResponse{
-
         if($this->getUser()->getId() == $id){
             $this->addFlash("error", "Impossible de supprimer son propre compte!");
             return $this->redirectToRoute('app_admin_users');
         }
         $repo = $em->getRepository("App\Entity\User");
         $user = $repo->find($id);
+        if($user == null){
+            $this->addFlash("error", "Impossible de supprimer. Le compte n'existe pas !");
+            return $this->redirectToRoute('app_admin_users');
+        }
         $username = $user->getUsername();
         $em->remove($user);
         $em->flush();

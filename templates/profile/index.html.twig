@@ -6,26 +6,32 @@
 
 {% block navbody %}
 <div class="headbody">
-
+    {% include "component/flashRenderer.html.twig" %}
     <div class="usercontainer">
-        <h1 class ="headtitle orage-lg">Mon profil</h1>
-        <h2 class ="category">Informations personnelles</h2>
+        <h1 class="headtitle orage-lg">Mon profil</h1>
+        <h2 class="category">Informations personnelles</h2>
         <p><strong>Nom d'utilisateur :</strong> {{ app.user.username }}</p>
-        <p><strong>Nom: </strong> {{app.user.lastname}} <strong>Prénom: </strong> {{app.user.firstname}}</p>
+        <p><strong>Nom: </strong> {{ app.user.lastname }} <strong>Prénom: </strong> {{ app.user.firstname }}</p>
         <p><strong>Email :</strong> {{ app.user.email }}</p>
-        <p><strong>Date de création du compte :</strong> {{ app.user.createdAt ? app.user.createdAt|date('d/m/Y H:i') : 'Non disponible' }}</p>
+        <p><strong>Date de création du compte
+                :</strong> {{ app.user.createdAt ? app.user.createdAt|date('d/m/Y H:i') : 'Non disponible' }}</p>
+        <p><strong>Email vérifié:</strong>{% if app.user.isVerified %} <span
+            class="text-success">Vérifié</span>{% else %} <span class="text-danger">Non Vérifié</span>{% endif %}</p>
         <!-- Ajoutez d'autres informations utilisateur ici -->
-        <h2 class ="category">Préférences de compte</h2>
+        <h2 class="category">Préférences de compte</h2>
         <p>Gérez vos préférences ici.</p>
 
-        <h2 class ="category">Sécurité</h2>
+        <h2 class="category">Sécurité</h2>
         <p>Changez votre mot de passe ou configurez l'authentification à deux facteurs.</p>
-
-        <h2 class ="category">Actions du compte</h2>
-        <div class ="button-container">
+        {% if not app.user.isVerified %} <a class="btn btn-danger" href={{ url('app_verify_email_resend') }}>Renvoyer le
+            mail de vérification</a>{% endif %}
+        <h2 class="category">Actions du compte</h2>
+        <div class="button-container">
             <button class="orage-btn orage-sm">Modifier le profil</button>
-            <button class="orage-btn-warning orage-sm">Supprimer le compte</button>
+            <a  href={{ url('app_profile_delete') }} onclick="return confirm(
+            'Êtes-vous sûr de vouloir supprimer votre compte ?');"  class="orage-btn-warning orage-sm
+            ">Supprimer le compte</a>
         </div>
-        </div>
+    </div>
 
-{% endblock %}
+    {% endblock %}

@@ -2,57 +2,58 @@
     {% set orage_text = "Mon Profil" %}
     {% set path = "app_profile" %}
     {% if is_granted("ROLE_ADMIN") %}
-    {% set profile ="images/admin.svg"%}
+        {% set profile ="images/admin.svg" %}
     {% else %}
-    {% set profile ="images/signed.svg"%}
+        {% set profile ="images/signed.svg" %}
     {% endif %}
 {% else %}
     {% set orage_text = "Connexion" %}
     {% set path = "app_login" %}
-    {% set profile ="images/unsigned.svg"%}
+    {% set profile ="images/unsigned.svg" %}
 {% endif %}
-<div id = "navbar" class = "orage-navbar">
-
-    {% set navitems = [["home","Accueil"],["lessons","Cours"],["contact","Contact"],["team","Notre Equipe"]] %}
-    <div id = "nav-hamburger" class ="navbar-mobile">
-        <img src={{ asset("images/list.svg") }} class=logo alt="logo">
+<div id="navbar" class="orage-navbar">
+    {% set navitems = [["home","Accueil"],["lessons","Cours"],["exercices","Exercices"],["contact","Contact"],["team","Notre Equipe"]] %}
+    <div id="nav-hamburger" class="navbar-mobile">
+        <img src={{ asset("images/list.svg") }} class="logo navbar-icon" alt="logo">
     </div>
-    <script defer src={{ asset("JS/navbar.js")}}>
+    <script defer src={{ asset("JS/navbar.js") }}>
     </script>
-    {#Balances items in the two containers#}
+    {# Balances items in the two containers #}
     <div class="navbar-item-container">
         <div class="navbar-item profile-container">
-            <a {% if not app.user %} href={{url("app_login")}} {% endif %} class="button-profile">
-                <img src={{ asset(profile) }} alt="profile" class ="orage-icon">
+            <a {% if not app.user %} href={{ url("app_login") }} {% endif %} class="button-profile">
+                <img src={{ asset(profile) }} alt="profile" class="orage-icon">
                 <span>{{ orage_text }}</span>
             </a>
             {% if app.user %}
                 <div class="profile-dropdown">
-                <ul>
-                    {% if is_granted("ROLE_ADMIN") %}
-                        <li><a href="{{ url('app_admin_panel') }}">Dashboard Admin</a></li>
-                    {% endif %}
-                    <li><a href="{{ url('app_profile') }}">Mon Profil</a></li>
-                    <li><a href="{{ url('app_logout') }}">Déconnexion</a></li>
-                </ul>
+                    <ul>
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <li><a href="{{ url('app_admin_panel') }}">Dashboard Admin</a></li>
+                        {% endif %}
+                        <li><a href="{{ url('app_profile') }}">Mon Profil</a></li>
+                        <li><a href="{{ url('app_logout') }}">Déconnexion</a></li>
+                    </ul>
                 </div>
             {% endif %}
         </div>
         {% set half = (navitems|length / 2 )|round %}
-        {% for i in 0..half-1 %}
-            <div class="navbar-item {% if app.request.get('_route') starts with navitems[i][0] %}orage-active{% endif %}">
-                <a href="{{ url(navitems[i][0]) }}">{{navitems[i][1]}}</a>
+        {% for i in 0..half-2 %}
+            <div
+                class="navbar-item {% if app.request.get('_route') starts with navitems[i][0] %}orage-active{% endif %}">
+                <a href="{{ url(navitems[i][0]) }}">{{ navitems[i][1] }}</a>
             </div>
         {% endfor %}
     </div>
-    <div class ="navbarlogo">
-        <img src={{ asset("images/logo.png") }} alt="logo" class ="logo">
+    <div class="navbarlogo">
+        <img src={{ asset("images/logo.png") }} alt="logo" class="logo">
         <p>ORAGE</p>
     </div>
     <div class="navbar-item-container">
-        {% for i in half..navitems|length -1 %}
-            <div class="navbar-item {% if app.request.get('_route') starts with navitems[i][0] %}orage-active{% endif %}">
-                <a href="{{ url(navitems[i][0]) }}">{{navitems[i][1]}}</a>
+        {% for i in half-1..navitems|length -1 %}
+            <div
+                class="navbar-item {% if app.request.get('_route') starts with navitems[i][0] %}orage-active{% endif %}">
+                <a href="{{ url(navitems[i][0]) }}">{{ navitems[i][1] }}</a>
             </div>
         {% endfor %}
     </div>

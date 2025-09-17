@@ -80,7 +80,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $limit = 10;
         return $this->paginator->paginate(
             $this->createQueryBuilder('u')
-            ->select('u.id','u.username','u.email','u.roles')
+            ->select('u.id','u.username','u.email','u.roles','u.isVerified')
             ->where('u.roles LIKE :param or u.username LIKE :param or u.email LIKE :param')
             ->setParameter('param', '%'.$param.'%')
             ,
@@ -89,8 +89,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             [
                 'distinc' => true,
                 'sortFieldAllowList' => ['u.username'],
-
-
             ]
         );
     }
@@ -100,6 +98,6 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->setParameter('param', $emailOrUsername)
             ->setMaxResults(1)
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
     }
 }
