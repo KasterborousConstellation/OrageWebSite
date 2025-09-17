@@ -14,6 +14,7 @@
                 <th>Email</th>
                 <th>Roles</th>
                 <th>Actions</th>
+                <th>Email Vérifié</th>
             </tr>
         </thead>
         <tbody>
@@ -29,9 +30,13 @@
                 </span>
                 </td>
                 <td>
+                    {% if user.isVerified %}<span class="text-success">Vérifié</span>{% else %}<span class="text-danger">Non Vérifié</span>{% endif %}
+                </td>
+                <td>
                     <a class="orage-btn">Modifier</a>
                     <a href={{ path('app_admin_users_delete',{ id : user.id})}} class="orage-btn-warning" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">Supprimer</a>
                 </td>
+
             </tr>
         {% endfor %}
         </tbody>

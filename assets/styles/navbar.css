@@ -159,8 +159,11 @@
         visibility: hidden;
         position: fixed;
     }
-    .logo{
+    .navbar-icon{
         filter : invert(90%) contrast(95%);
+    }
+    .logo{
+
         height: calc(0.5*var(--navbar-height));
     }
     .navbar-mobile:hover{

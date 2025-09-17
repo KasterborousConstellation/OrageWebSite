@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Security\EmailVerifier;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
@@ -41,7 +42,7 @@ class SecurityController extends AbstractController
     }
     #[IsGranted('ROLE_USER')]
     #[Route(path: '/verify_email_resend', name: 'app_verify_email_resend')]
-    public function resendVerificationEmail(VerifyEmailHelperInterface $emailHelper): RedirectResponse
+    public function resendVerificationEmail(EntityManagerInterface $em,VerifyEmailHelperInterface $emailHelper): RedirectResponse
     {
         $user = $this->getUser();
         if (!$user instanceof User) {
@@ -52,6 +53,12 @@ class SecurityController extends AbstractController
 
             return $this->redirectToRoute('app_profile');
         }
+        $lastEmail = $user->getLastValidatinEmail();
+        if($lastEmail >= new \DateTimeImmutable('-5 minutes')){
+            $last = $lastEmail->diff(new \DateTimeImmutable('-5 minutes'))->i;
+            $this->addFlash('error', "Vous devez attendre $last minutes avant de pouvoir renvoyer un mail de vérification.");
+            return $this->redirectToRoute('app_profile');
+        }
         $this->addFlash('success', 'Un nouveau mail de vérification a été envoyé à votre adresse mail.');
         $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
             (new TemplatedEmail())
@@ -60,6 +67,9 @@ class SecurityController extends AbstractController
                 ->subject('Confirmez votre mail.')
                 ->htmlTemplate('registration/confirmation_email.html.twig')
         );
+        $user->setLastValidatinEmail(new \DateTimeImmutable());
+        $em->persist($user);
+        $em->flush();
         return $this->redirectToRoute('app_profile');
     }
 }

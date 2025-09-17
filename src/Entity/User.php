@@ -54,6 +54,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\OneToMany(targetEntity: Annonce::class, mappedBy: 'author')]
     private Collection $annonces;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $lastValidatinEmail = null;
     public function getEmail(): ?string
     {
         return $this->email;
@@ -223,6 +226,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $annonce->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLastValidatinEmail(): ?\DateTimeImmutable
+    {
+        return $this->lastValidatinEmail;
+    }
+
+    public function setLastValidatinEmail(\DateTimeImmutable $lastValidatinEmail): static
+    {
+        $this->lastValidatinEmail = $lastValidatinEmail;
 
         return $this;
     }

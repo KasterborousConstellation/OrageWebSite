@@ -12,10 +12,9 @@
     {% set profile ="images/unsigned.svg" %}
 {% endif %}
 <div id="navbar" class="orage-navbar">
-
     {% set navitems = [["home","Accueil"],["lessons","Cours"],["exercices","Exercices"],["contact","Contact"],["team","Notre Equipe"]] %}
     <div id="nav-hamburger" class="navbar-mobile">
-        <img src={{ asset("images/list.svg") }} class=logo alt="logo">
+        <img src={{ asset("images/list.svg") }} class="logo navbar-icon" alt="logo">
     </div>
     <script defer src={{ asset("JS/navbar.js") }}>
     </script>
