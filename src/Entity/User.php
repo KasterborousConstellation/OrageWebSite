@@ -57,6 +57,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?\DateTimeImmutable $lastValidatinEmail = null;
+
+    /**
+     * @var Collection<int, TentativeQCM>
+     */
+    #[ORM\ManyToMany(targetEntity: TentativeQCM::class, mappedBy: 'tryQCM')]
+    private Collection $tentatives;
     public function getEmail(): ?string
     {
         return $this->email;
@@ -109,6 +115,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->createdAt = new \DateTimeImmutable(); // current date/time
         $this->annonces = new ArrayCollection();
+        $this->tentatives = new ArrayCollection();
     }
     /**
      * @param list<string> $roles
@@ -238,6 +245,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastValidatinEmail(\DateTimeImmutable $lastValidatinEmail): static
     {
         $this->lastValidatinEmail = $lastValidatinEmail;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TentativeQCM>
+     */
+    public function getTentatives(): Collection
+    {
+        return $this->tentatives;
+    }
+
+    public function addTentative(TentativeQCM $tentative): static
+    {
+        if (!$this->tentatives->contains($tentative)) {
+            $this->tentatives->add($tentative);
+            $tentative->addTryQCM($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTentative(TentativeQCM $tentative): static
+    {
+        if ($this->tentatives->removeElement($tentative)) {
+            $tentative->removeTryQCM($this);
+        }
 
         return $this;
     }
