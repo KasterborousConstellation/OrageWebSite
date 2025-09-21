@@ -1,20 +1,155 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PrivacyController!{% endblock %}
+{% block title %}Conditions générales d'utilisation - CGU{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/palette.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/cgu.css') }}">
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    {% include "component/navbar.html.twig" %}
+    <div class="cgu-container">
+        <div class="cgu-hero">
+            <h1 class="cgu-title">CONDITIONS GÉNÉRALES D'UTILISATION</h1>
+            <p class="cgu-subtitle">Dernière mise à jour : {{ "now"|date("d/m/Y") }}</p>
+        </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <div class="cgu-content">
+            <article class="cgu-section">
+                <h2 class="cgu-section-title">Article 1 - Présentation du service</h2>
+                <p>ORAGE (Organisation pour la Réussite Académique Gratuite et Équitable) est une association étudiante
+                    créée en 2025, ayant pour objet de favoriser l'accès à la connaissance et de soutenir les étudiants
+                    dans leur parcours académique.</p>
+                <p>Le site internet <strong>www.asso-orage.fr</strong> (ci-après "le Site") est édité par l'association
+                    ORAGE, représentée par ses co-présidents :</p>
+                <ul>
+                    <li><strong>D.L. Bruno</strong>, Co-Président & Gestionnaire</li>
+                    <li><strong>A. Paul</strong>, Co-Président & Trésorier</li>
+                </ul>
+                <p><strong>Contact :</strong> <a href="mailto:contact@asso-orage.fr">contact@asso-orage.fr</a></p>
+            </article>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/paul/Desktop/OrageWebSite/OrageWebSite/src/Controller/PrivacyController.php</code></li>
-        <li>Your template at <code>/home/paul/Desktop/OrageWebSite/OrageWebSite/templates/privacy/index.html.twig</code></li>
-    </ul>
+            <article class="cgu-section">
+                <h2 class="cgu-section-title">Article 2 - Objet</h2>
+                <p>Les présentes conditions générales d'utilisation (CGU) ont pour objet de définir les modalités et
+                    conditions d'utilisation des services proposés sur le Site, ainsi que les droits et obligations des
+                    parties dans ce cadre.</p>
+            </article>
+
+            <article class="cgu-section">
+                <h2 class="cgu-section-title">Article 3 - Acceptation des conditions</h2>
+                <p>L'utilisation du Site implique l'acceptation pleine et entière des présentes CGU. En créant un compte
+                    utilisateur, l'utilisateur confirme avoir lu, compris et accepté ces conditions.</p>
+            </article>
+
+            <article class="cgu-section">
+                <h2 class="cgu-section-title">Article 4 - Description des services</h2>
+                <p>ORAGE propose gratuitement :</p>
+                <ul>
+                    <li>Des ressources pédagogiques (cours, exercices)</li>
+                    <li>Un espace de partage et de collaboration entre étudiants</li>
+                    <li>Des outils d'accompagnement académique</li>
+                    <li>Une plateforme de contact et d'échange</li>
+                </ul>
+            </article>
+
+            <article class="cgu-section">
+                <h2 class="cgu-section-title">Article 5 - Création et gestion du compte utilisateur</h2>
+                <h3>5.1 Inscription</h3>
+                <ul>
+                    <li>L'inscription nécessite de fournir des informations exactes et à jour</li>
+                    <li>L'utilisateur doit vérifier son adresse e-mail lors de l'inscription</li>
+                    <li>Chaque utilisateur ne peut créer qu'un seul compte</li>
+                </ul>
+                <h3>5.2 Responsabilité du compte</h3>
+                <ul>
+                    <li>L'utilisateur est responsable de la confidentialité de ses identifiants</li>
+                    <li>Toute utilisation du compte est sous la responsabilité de son titulaire</li>
+                    <li>L'utilisateur doit signaler immédiatement tout usage non autorisé</li>
+                </ul>
+                <h3>5.3 Suppression du compte</h3>
+                <ul>
+                    <li>L'utilisateur peut supprimer son compte à tout moment depuis son profil</li>
+                    <li>ORAGE se réserve le droit de supprimer tout compte en cas de non-respect des CGU</li>
+                </ul>
+            </article>
+
+            <article class="cgu-section">
+                <h2 class="cgu-section-title">Article 6 - Utilisation du service</h2>
+                <h3>6.1 Utilisation autorisée</h3>
+                <ul>
+                    <li>Le Site est destiné à un usage personnel et éducatif</li>
+                    <li>Les ressources sont mises à disposition gratuitement dans un but pédagogique</li>
+                    <li>L'utilisateur s'engage à respecter les droits d'auteur et la propriété intellectuelle</li>
+                </ul>
+                <h3>6.2 Utilisation interdite</h3>
+                <p>Il est formellement interdit :</p>
+                <ul>
+                    <li>D'utiliser le service à des fins commerciales sans autorisation</li>
+                    <li>De porter atteinte à l'ordre public ou aux bonnes mœurs</li>
+                    <li>De diffuser des contenus illégaux, diffamatoires ou malveillants</li>
+                    <li>D'usurper l'identité d'un tiers ou de créer de faux comptes</li>
+                    <li>De tenter d'accéder de manière non autorisée aux systèmes informatiques</li>
+                </ul>
+            </article>
+
+            <article class="cgu-section">
+                <h2 class="cgu-section-title">Article 7 - Propriété intellectuelle</h2>
+                <h3>7.1 Contenus ORAGE</h3>
+                <ul>
+                    <li>Les contenus créés par ORAGE sont protégés par les droits d'auteur</li>
+                    <li>Sauf mention contraire, les contenus sont mis à disposition sous licence libre</li>
+                    <li>Toute reproduction ou utilisation commerciale nécessite une autorisation préalable</li>
+                </ul>
+                <h3>7.2 Contenus utilisateurs</h3>
+                <ul>
+                    <li>Les utilisateurs conservent leurs droits sur les contenus qu'ils publient</li>
+                    <li>En publiant du contenu, l'utilisateur accorde à ORAGE une licence d'utilisation non exclusive
+                    </li>
+                    <li>L'utilisateur garantit disposer des droits nécessaires sur les contenus qu'il publie</li>
+                </ul>
+            </article>
+
+            <article class="cgu-section">
+                <h2 class="cgu-section-title">Article 8 - Responsabilité</h2>
+                <h3>8.1 Responsabilité d'ORAGE</h3>
+                <ul>
+                    <li>ORAGE s'efforce d'assurer un service de qualité, mais ne garantit pas l'absence
+                        d'interruptions
+                    </li>
+                    <li>ORAGE ne peut être tenu responsable des dommages indirects</li>
+                    <li>La responsabilité d'ORAGE est limitée aux préjudices directs et prévisibles</li>
+                </ul>
+                <h3>8.2 Responsabilité des utilisateurs</h3>
+                <ul>
+                    <li>Chaque utilisateur est responsable de l'utilisation qu'il fait du service</li>
+                    <li>L'utilisateur s'engage à respecter les lois en vigueur et les droits des tiers</li>
+                    <li>L'utilisateur indemnisera ORAGE de tout préjudice résultant de son utilisation non conforme</li>
+                </ul>
+            </article>
+
+            <article class="cgu-section">
+                <h2 class="cgu-section-title">Article 9 - Protection des données personnelles</h2>
+                <p>Le traitement des données personnelles est régi par notre <a href="{{ path('app_terms') }}">Politique
+                        de Confidentialité</a>, accessible sur le Site et faisant partie intégrante des présentes CGU.
+                </p>
+            </article>
+
+            <article class="cgu-section">
+                <h2 class="cgu-section-title">Article 10 - Modification des CGU</h2>
+                <p>ORAGE se réserve le droit de modifier les présentes CGU à tout moment. Les utilisateurs seront
+                    informés de toute modification substantielle. La poursuite de l'utilisation du service vaut
+                    acceptation des nouvelles conditions.</p>
+            </article>
+
+            <article class="cgu-section">
+                <h2 class="cgu-section-title">Article 11 - Droit applicable et juridiction</h2>
+                <p>Les présentes CGU sont soumises au droit français. En cas de litige, les parties s'efforceront de
+                    trouver une solution amiable. À défaut, les tribunaux de Tours seront seuls compétents.</p>
+            </article>
+        </div>
 </div>
+
 {% endblock %}
