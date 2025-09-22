@@ -7,9 +7,10 @@
 {% endblock %}
 
 {% block navbody %}
+    {% include "component/flashRenderer.html.twig" %}
     <div class="container-wrapper">
         {# Section d'introduction / Hero #}
-        {% set banner_title = "Bienvenue chez <span class='hero-highlight'>ORAGE</span>"%}
+        {% set banner_title = "Bienvenue chez <span class='hero-highlight'>ORAGE</span>" %}
         {% set banner_description = '<p class="hero-subtitle">
                 Apprendre ensemble, sans barrières. <br/>
                 Découvrez nos missions.
@@ -18,8 +19,8 @@
                 <a href="#missions" class="hero-button">
                     En savoir plus
                 </a>
-            </div>'%}
-        {% include "component/banner.html.twig"%}
+            </div>' %}
+        {% include "component/banner.html.twig" %}
 
         {# Section Missions et Objectifs #}
         <section id="missions" class="missions-section orage-section-margin">
@@ -30,7 +31,8 @@
                     <div class="mission-icon icon-light">💡</div> {# Icône placeholder #}
                     <h3 class="mission-title">Favoriser l'Accès à la Connaissance</h3>
                     <p class="mission-description">
-                        Nous nous engageons à rendre l'éducation accessible à tous, en développant des ressources pédagogiques gratuites.
+                        Nous nous engageons à rendre l'éducation accessible à tous, en développant des ressources
+                        pédagogiques gratuites.
                     </p>
                 </div>
                 {# Mission 2 #}
@@ -38,7 +40,8 @@
                     <div class="mission-icon icon-book">📚</div> {# Icône placeholder #}
                     <h3 class="mission-title">Soutenir l'étudiant</h3>
                     <p class="mission-description">
-                        Notre objectif est d'accompagner chacun dans son parcours académique, en lui fournissant les outils nécessaires à la réussite.
+                        Notre objectif est d'accompagner chacun dans son parcours académique, en lui fournissant les
+                        outils nécessaires à la réussite.
                     </p>
                 </div>
                 {# Objectif 1 #}
@@ -46,7 +49,8 @@
                     <div class="mission-icon icon-handshake">🤝</div> {# Icône placeholder #}
                     <h3 class="mission-title">Apprendre ensemble</h3>
                     <p class="mission-description">
-                        Nous bâtissons un réseau de partage et de collaboration où chacun peut apprendre et contribuer activement.
+                        Nous bâtissons un réseau de partage et de collaboration où chacun peut apprendre et contribuer
+                        activement.
                     </p>
                 </div>
             </div>
@@ -59,21 +63,26 @@
             <div class="latest-additions-grid">
                 {# Dernier Cours #}
                 <div class="addition-card">
-                    <img src="https://placehold.co/400x250/E0F2FE/2563EB?text=Cours+Placeholder" alt="Placeholder pour un cours" class="addition-image">
+                    <img src="https://placehold.co/400x250/E0F2FE/2563EB?text=Cours+Placeholder"
+                         alt="Placeholder pour un cours" class="addition-image">
                     <h3 class="addition-title">Nouveau Cours : Abcd</h3>
                     <p class="addition-description">
-                        Une ô combien jolie description, qui pourrait éventuellement être basée sur une requête à la base de données.
+                        Une ô combien jolie description, qui pourrait éventuellement être basée sur une requête à la
+                        base de données.
                     </p>
                     <a href="#" class="addition-link">Accéder au cours →</a>
                 </div>
                 {# Dernier Exercice #}
                 <div class="addition-card">
-                    <img src="https://placehold.co/400x250/FEE2E2/DC2626?text=Exercice+Placeholder" alt="Placeholder pour un exercice" class="addition-image">
+                    <img src="https://placehold.co/400x250/FEE2E2/DC2626?text=Exercice+Placeholder"
+                         alt="Placeholder pour un exercice" class="addition-image">
                     <h3 class="addition-title">Nouvel Exercice : Abcd</h3>
                     <p class="addition-description">
-                        Une ô combien jolie description, qui pourrait éventuellement être basée sur une requête à la base de données.
+                        Une ô combien jolie description, qui pourrait éventuellement être basée sur une requête à la
+                        base de données.
                     </p>
-                    <a href="#" class="addition-link">Commencer l'exercice →</a> {# Il faudrait ici rajouter le lien vers l'exercice en question #}
+                    <a href="#" class="addition-link">Commencer l'exercice
+                        →</a> {# Il faudrait ici rajouter le lien vers l'exercice en question #}
                 </div>
             </div>
         </section>
@@ -81,31 +90,30 @@
         {# Section Dernières Nouveautés (Événements) #}
         <section class="latest-news-section orage-section-margin">
             <h2 class="section-title">Nos Dernières Nouveautés</h2>
+
             <div class="latest-news-grid">
                 {# Nouveauté 1 : Événement #}
-                <div class="news-card">
-                    <div class="news-icon icon-calendar">🗓️</div> {# Icône calendrier #}
-                    <div>
-                        <h3 class="news-title">Pour les événement prévus</h3>
-                        <p class="news-description">
-                            Rejoignez-nous on ne sait quand pour on ne sait quoi.
-                        </p>
-                        <span class="news-date">Date : Un jour ? Puis ce serait mieux avec une requête</span>
-                        <a href="#" class="news-link">S'inscrire →</a>
+                {% for ann in annonces %}
+                    {% if ann.visible %}
+                        {% set visibility = "<span class='text-success'>Visible</span>" %}
+                    {% else %}
+                        {% set visibility = "<span class='text-danger'>Caché </span>" %}
+                    {% endif %}
+                    {% if ann.expirateAt < "now"|date("Y-m-d H:i:s") %}
+                        {% set visibility = "<span class='text-danger'>Expiré </span>" %}
+                    {% endif %}
+                    <div class="news-card">
+                        <div class="news-icon icon-announcement">📢</div> {# Icône annonce #}
+                        <div>
+                            <h3 class="news-title">{{ ann.title }}</h3>
+                            <p class="news-description">
+                                {{ ann.slug }}
+                            </p>
+                            <p class="news-date">{{ ann.createdAt|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") }}</p>
+                            <a href={{ url('article', {'id' : ann.id})}} class="news-link">Lire l'article</a>
+                        </div>
                     </div>
-                </div>
-                {# Nouveauté 2 : Article de blog / Annonce #}
-                <div class="news-card">
-                    <div class="news-icon icon-announcement">📢</div> {# Icône annonce #}
-                    <div>
-                        <h3 class="news-title">Annonce : L'annonce de dingue</h3>
-                        <p class="news-description">
-                            Super annonce, told you so !
-                        </p>
-                        <span class="news-date">Publié le : Aujourd'hui même</span>
-                        <a href="#" class="news-link">Lire l'article →</a>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </section>
     </div>

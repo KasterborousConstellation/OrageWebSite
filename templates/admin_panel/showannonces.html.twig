@@ -1,0 +1,42 @@
+{% extends "admin_panel/index.html.twig" %}
+{% block stylesheets %}
+    <link rel="stylesheet" href={{ asset("styles/admin.css") }}>
+    <link rel="stylesheet" href={{ asset("styles/home.css") }}>
+{% endblock %}
+{% block title %}Annonces - Admin Panel {% endblock %}
+{% block admincontent %}
+    {% include "component/flashRenderer.html.twig" %}
+    <h1 class="headtitle">Annonces en cours</h1>
+    <div class="latest-news-grid">
+
+        {% for ann in annonces %}
+            {% if ann.visible %}
+                {% set visibility = "<span class='text-success'>Visible</span>" %}
+            {% else %}
+                {% set visibility = "<span class='text-danger'>Caché </span>" %}
+            {% endif %}
+            {% if ann.expirateAt|date > "now"|date %}
+                {% set visibility = "<span class='text-danger'>Expiré </span>" %}
+            {% else %}
+
+            {% endif %}
+            <div class="news-card">
+                <div class="news-icon icon-announcement">📢</div> {# Icône annonce #}
+                <div>
+                    <h3 class="news-title">{{ ann.title }}</h3>
+                    <p class="news-description">
+                        {{ann.slug}}
+                    </p>
+                    <p class="news-date">Crée le : {{ ann.createdAt|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") }}</p>
+                    <p class="news-date">Expire le : {{ ann.expirateAt|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") }}</p>
+                    <p> Status : {{ visibility|raw }}</p>
+
+                    <a href={{ url('article',{'id' : ann.id })}} class="news-link">Voir l'article</a>
+
+                    <a href="#" class="news-link">Modifier l'article</a>
+                    {% if ann.visible %}<a href={{ url('app_admin_announces_visibility' , {'id' : ann.id } )}} class="news-link text-danger">Cacher l'article</a>{% else %}<a href={{ url('app_admin_announces_visibility' , {'id' : ann.id } )}} class="news-link text-success">Publier l'article</a>{% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

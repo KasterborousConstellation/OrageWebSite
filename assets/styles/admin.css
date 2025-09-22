@@ -20,17 +20,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
 }
-.main-content{
-    max-width: 100vw;
-    min-width: 150px;
-    display: flex;
-    flex-direction: column;
-    width: auto;
-    margin: 0 20px;
-    height: auto;
-    flex-grow: 1;
-    align-items: center;
-}
+
 .user-table{
     max-width: 1500px;
     width: 100%;
@@ -69,4 +59,15 @@
         flex-direction: column;
         flex-wrap: nowrap;
     }
+}
+.main-content{
+    max-width: 100vw;
+    min-width: 150px;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    margin: 0 20px;
+    height: auto;
+    flex-grow: 1;
+    align-items: center;
 }

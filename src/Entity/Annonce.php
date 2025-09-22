@@ -26,6 +26,15 @@ class Annonce
     #[ORM\Column(length: 100)]
     private ?string $slug = null;
 
+    #[ORM\Column]
+    private ?bool $visible = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $expirateAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +84,42 @@ class Annonce
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function isVisible(): ?bool
+    {
+        return $this->visible;
+    }
+
+    public function setVisible(bool $visible): static
+    {
+        $this->visible = $visible;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getExpirateAt(): ?\DateTimeImmutable
+    {
+        return $this->expirateAt;
+    }
+
+    public function setExpirateAt(\DateTimeImmutable $expirateAt): static
+    {
+        $this->expirateAt = $expirateAt;
 
         return $this;
     }

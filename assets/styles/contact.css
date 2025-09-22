@@ -227,34 +227,3 @@
     min-height: 100px;
     width: 80%;
 }
-.etiquette {
-    width: max(200px, 15vw);
-    max-width: 300px;
-    min-width: 200px;
-    aspect-ratio: 1/1;
-    height: auto;
-    margin: 10px;
-    padding: auto;
-    text-align: center;
-    background-color: #fff;
-    border: 1px solid lightgrey;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    overflow: visible;
-    box-sizing: border-box;
-    font-size: calc(0.9*clamp(0.9rem, 2vw, 1.2rem));
-    line-height: 1.2;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
-    border-radius: 5px;
-}
-.etiquette-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: max-content;
-    flex-wrap: wrap;
-}

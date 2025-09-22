@@ -9,4 +9,9 @@
         <p class="flash-success">{{ message }}</p>
     </div>
 {% endfor %}
+    {% for message in app.flashes('info') %}
+        <div class="flash-info-container">
+            <p class="flash-info">{{ message }}</p>
+        </div>
+    {% endfor %}
 </div>

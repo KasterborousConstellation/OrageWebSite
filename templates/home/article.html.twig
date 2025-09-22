@@ -1,0 +1,23 @@
+{% extends 'oragePage.html.twig' %}
+{% block title %}
+    Article : ann.title - ORAGE
+{% endblock %}
+{% block stylesheets %}
+    {# Lien vers le fichier CSS spécifique à la page d'accueil #}
+    <link rel="stylesheet" href={{ asset("styles/home.css") }}>
+    <link rel="stylesheet" href={{ asset("styles/article.css") }}>
+{% endblock %}
+{% block navbody %}
+    {% include "component/flashRenderer.html.twig" %}
+    <div>
+        <section class="article-section orage-section-margin main-content">
+            <h2 class="category">{{ ann.title }}</h2>
+            <p class="news-description">Crée par : {{ ann.author.firstname}} {{  ann.author.lastname }}</p>
+            <p class="news-date article-meta">Publié le : {{ ann.createdAt|format_datetime(locale='fr', pattern="EEEE dd MMMM YYYY") }}</p>
+            <div class="article-content">
+                {{ ann.content|raw }}
+            </div>
+            <a href="{{ url('home') }}" class="back-link">← Retour à l'accueil</a>
+        </section>
+    </div>
+{% endblock %}
