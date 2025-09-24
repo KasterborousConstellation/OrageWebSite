@@ -100,6 +100,20 @@ final class AdminPanelController extends AbstractController
         $annonces = $em->getRepository("App\Entity\Annonce")->findAll();
         return $this->render('admin_panel/showannonces.html.twig', ['annonces' => $annonces]);
     }
+    #[Route('/admin/announces/edit/{id}', name: 'app_admin_announces_edit')]
+    public function edit(EntityManagerInterface $em, int $id) :Response{
+        $annonce = $em->getRepository('App\Entity\Annonce')->find($id);
+        if($annonce == null){
+            return $this->redirectToRoute('app_admin_announces_show');
+        }
+        $form = $this->createForm('App\Form\ModifiedAnnounceType');
+        $form->handleRequest();
+        if($form->isSubmitted() && $form->isValid()){
+
+
+        }
+        return $this->render('admin_panel/modify.html.twig', ['form' => $form]);
+    }
     #[Route('/admin/announces/setVisible/{id}', name: 'app_admin_announces_visibility', requirements: ['id' => '\d+'])]
     public function visibility(int $id,EntityManagerInterface $em) :RedirectResponse{
         $repo = $em->getRepository('App\Entity\Annonce');
@@ -118,5 +132,16 @@ final class AdminPanelController extends AbstractController
             $this->addFlash('success', 'Visibilité modifiée avec succès !');
             return $this->redirectToRoute('app_admin_announces_show');
         }
+    }
+    #[Route('/admin/depot', name: 'app_admin_depots')]
+    public function depot(EntityManagerInterface $em) : Response{
+        $form = $this->createForm("App\Form\DepotType");
+        $form->handleRequest(Request::createFromGlobals());
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->getRepository("App\Entity\Depot")->createDepotFromForm($form);
+            $this->addFlash('success', 'Dépôt créé avec succès !');
+            return $this->redirectToRoute('app_admin_depots');
+        }
+        return $this->render('admin_panel/adminCreateDepot.html.twig' , ['depotForm' => $form]);
     }
 }

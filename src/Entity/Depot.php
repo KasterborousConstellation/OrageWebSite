@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DepotRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Unique;
 
 #[ORM\Entity(repositoryClass: DepotRepository::class)]
 class Depot
@@ -21,6 +22,9 @@ class Depot
 
     #[ORM\Column]
     private ?int $version = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $identifier = null;
 
     public function getId(): ?int
     {
@@ -59,6 +63,18 @@ class Depot
     public function setVersion(int $version): static
     {
         $this->version = $version;
+
+        return $this;
+    }
+
+    public function getIdentifier(): ?string
+    {
+        return $this->identifier;
+    }
+
+    public function setIdentifier(string $identifier): static
+    {
+        $this->identifier = $identifier;
 
         return $this;
     }

@@ -15,7 +15,8 @@
             {% else %}
                 {% set visibility = "<span class='text-danger'>Caché </span>" %}
             {% endif %}
-            {% if ann.expirateAt|date > "now"|date %}
+
+            {% if ann.expirateAt|date('U') <= "now"|date('U')  %}
                 {% set visibility = "<span class='text-danger'>Expiré </span>" %}
             {% else %}
 
