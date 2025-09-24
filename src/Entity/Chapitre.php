@@ -119,4 +119,16 @@ class Chapitre
 
         return $this;
     }
+    public function getLatestDepot(): ?Depot
+    {
+        $latest = null;
+        $version = -1;
+        foreach ($this->depots as $depot) {
+            if( $depot->getVersion() > $version ) {
+                $latest = $depot;
+                $version = $depot->getVersion();
+            }
+        }
+        return $latest;
+    }
 }

@@ -1,15 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'oragePage.html.twig' %}
 
 {% block title %}Conditions générales d'utilisation - CGU{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('styles/palette.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/cgu.css') }}">
 {% endblock %}
 
-{% block body %}
-    {% include "component/navbar.html.twig" %}
+{% block navbody %}
+
     <div class="cgu-container">
         <div class="cgu-hero">
             <h1 class="cgu-title">CONDITIONS GÉNÉRALES D'UTILISATION</h1>

@@ -100,6 +100,23 @@ final class AdminPanelController extends AbstractController
         $annonces = $em->getRepository("App\Entity\Annonce")->findAll();
         return $this->render('admin_panel/showannonces.html.twig', ['annonces' => $annonces]);
     }
+    #[Route('/admin/announces/edit/{id}', name: 'app_admin_announces_edit')]
+    public function edit(Request $request,EntityManagerInterface $em, int $id) :Response{
+        $annonce = $em->getRepository('App\Entity\Annonce')->find($id);
+        if($annonce == null){
+            $this->addFlash('error',"Impossible de modifier. L'annonce n'existe pas !");
+            return $this->redirectToRoute('app_admin_announces_show');
+        }
+        $form = $this->createForm('App\Form\ModifiedAnnounceType',
+           $annonce);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $em->persist($annonce);
+            $em->flush();
+            return $this->redirectToRoute('app_admin_announces_show');
+        }
+        return $this->render('admin_panel/modify.html.twig', ['form' => $form , 'slug']);
+    }
     #[Route('/admin/announces/setVisible/{id}', name: 'app_admin_announces_visibility', requirements: ['id' => '\d+'])]
     public function visibility(int $id,EntityManagerInterface $em) :RedirectResponse{
         $repo = $em->getRepository('App\Entity\Annonce');
@@ -119,4 +136,38 @@ final class AdminPanelController extends AbstractController
             return $this->redirectToRoute('app_admin_announces_show');
         }
     }
+    #[Route('/admin/createLesson', name: 'app_admin_cours')]
+    public function cours(Request $request,EntityManagerInterface $em) :Response{
+        $form = $this->createForm('App\Form\CoursFormType');
+
+        if($form->isSubmitted() && $form->isValid()){
+
+        }
+        return $this->render('admin_panel/cours.html.twig', ['cours_form' => $form->createView()]);
+    }
+    #[Route('/admin/createCategory', name: 'app_admin_category')]
+    public function category(Request $request,EntityManagerInterface $em) :Response{
+        $form = $this->createForm('App\Form\CategorieType');
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $category = $form->getData();
+            $em->persist($category);
+            $em->flush();
+            $this->addFlash('sucess','Catégorie crée.');
+            return $this->redirectToRoute('app_admin_panel');
+        }
+        return $this->render('admin_panel/category.html.twig', ['form' => $form->createView()]);
+    }
+    /*#[Route('/admin/depot', name: 'app_admin_depots')]
+    public function depot(EntityManagerInterface $em) : Response{
+        $form = $this->createForm("App\Form\DepotType");
+        $form->handleRequest(Request::createFromGlobals());
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->getRepository("App\Entity\Depot")->createDepotFromForm($form);
+            $this->addFlash('success', 'Dépôt créé avec succès !');
+            return $this->redirectToRoute('app_admin_depots');
+        }
+
+        return $this->render('admin_panel/adminCreateDepot.html.twig' , ['depotForm' => $form]);
+    }*/
 }

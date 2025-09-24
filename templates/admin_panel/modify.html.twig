@@ -1,0 +1,14 @@
+{% extends "admin_panel/index.html.twig" %}
+
+{% block admincontent %}
+    {% include "component/flashRenderer.html.twig" %}
+{{ form_start(form, {attr : {class : "mt-5"}}) }}
+
+    {{ form_row(form.title) }}
+
+
+    {{ form_row(form.slug) }}
+    {{ form_row(form.content) }}
+    {{ form_row(form.expirateAt) }}
+{{ form_end(form) }}
+{% endblock %}
