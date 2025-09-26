@@ -1,0 +1,8 @@
+{% extends "admin_panel/index.html.twig" %}
+{% block admincontent %}
+    {% include "component/flashRenderer.html.twig" %}
+    <h1 class ="category headtitle">Ajout d'un niveau</h1>
+    <p class="text-danger">Ajouter un niveau d'enseignement. Cette opération doit être validée par la commission pédagogique.</p>
+    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+    {{ form(form , {attr : {class : 'd-flex flex-column justify-content-center gap-2'}}) }}
+{% endblock %}

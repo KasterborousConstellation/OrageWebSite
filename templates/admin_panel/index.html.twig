@@ -23,22 +23,17 @@
             <a class="orage-btn normalized-button" href="{{ path('app_admin_announces_show') }}">Gestion des Annonces</a>
         </div>
         <p class="category">Cours</p>
-        <a class="orage-btn normalized-button" href="{{ path('app_admin_category') }}">Création Catégorie</a>
+        <div class="">
+            <a class="orage-btn normalized-button" href="{{ path('app_admin_niveau') }}">Création Niveau</a>
+        </div>
+        <div class="">
+            <a class="orage-btn normalized-button" href="{{ path('app_admin_category') }}">Création Catégorie</a>
+        </div>
+        <div class="">
             <a class="orage-btn normalized-button" href="{{ path('app_admin_cours') }}">Création Cours</a>
+        </div>
         <p class="category">Settings</p>
     </div>
-    {#
-    <a href="{{ path('admin_posts') }}">Post Management</a>
-    <a href="{{ path('admin_reports') }}">Report Management</a>
-    <a href="{{ path('admin_site_settings') }}">Site Settings</a>
-    <a href="{{ path('admin_logs') }}">View Logs</a>
-    <a href="{{ path('admin_statistics') }}">Statistics</a>
-    <a href="{{ path('admin_backup') }}">Backup & Restore</a>
-    <a href="{{ path('admin_email_settings') }}">Email Settings</a>
-    <a href="{{ path('admin_security_settings') }}">Security Settings</a>
-    <a href="{{ path('admin_content_moderation') }}">Content Moderation</a>
-    <a href="{{ path('admin_help_support') }}">Help & Support</a>
-    #}
 </div>
 <div class="main-content">
     {% block admincontent %}
@@ -46,6 +41,4 @@
     {% endblock %}
 </div>
 {% endblock %}
-
-
 {% endblock %}

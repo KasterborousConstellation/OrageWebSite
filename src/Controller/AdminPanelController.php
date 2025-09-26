@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use App\Form\SearchFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,27 +9,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-
 #[IsGranted("ROLE_ADMIN")]
 final class AdminPanelController extends AbstractController
 {
     #[Route('/admin/panel', name: 'app_admin_panel')]
     public function index(EntityManagerInterface $em,UserPasswordHasherInterface  $hasher): Response
     {
-        /*$user = new User();
-        $user->setUsername('User')->setRoles(['ROLE_USER'])->setEmail("test@gmail.com");
-        $hashedPassword = $hasher->hashPassword(
-            $user,
-            "0000"
-        );
-        $user->setPassword($hashedPassword);
-        $user->setFirstName("Test");
-        $user->setLastName("User");
-        $user->setCreatedAt(new \DateTimeImmutable());
-        $em->persist($user);
-        $em->flush();
-        */
-
         return $this->render('admin_panel/index.html.twig');
     }
     #[Route('/admin/users', name: 'app_admin_users')]
@@ -131,7 +114,6 @@ final class AdminPanelController extends AbstractController
             $ann->setVisible(!$ann->isVisible());
             $em->persist($ann);
             $em->flush();
-
             $this->addFlash('success', 'Visibilité modifiée avec succès !');
             return $this->redirectToRoute('app_admin_announces_show');
         }
@@ -153,21 +135,22 @@ final class AdminPanelController extends AbstractController
             $category = $form->getData();
             $em->persist($category);
             $em->flush();
-            $this->addFlash('sucess','Catégorie crée.');
+            $this->addFlash('success','Catégorie crée.');
             return $this->redirectToRoute('app_admin_panel');
         }
         return $this->render('admin_panel/category.html.twig', ['form' => $form->createView()]);
     }
-    /*#[Route('/admin/depot', name: 'app_admin_depots')]
-    public function depot(EntityManagerInterface $em) : Response{
-        $form = $this->createForm("App\Form\DepotType");
-        $form->handleRequest(Request::createFromGlobals());
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->getRepository("App\Entity\Depot")->createDepotFromForm($form);
-            $this->addFlash('success', 'Dépôt créé avec succès !');
-            return $this->redirectToRoute('app_admin_depots');
+    #[Route('/admin/createNiveau', name: 'app_admin_niveau')]
+    public function niveau(Request $request,EntityManagerInterface $em) :Response{
+        $form = $this->createForm('App\Form\NiveauType');
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $category = $form->getData();
+            $em->persist($category);
+            $em->flush();
+            $this->addFlash('success','Niveau crée.');
+            return $this->redirectToRoute('app_admin_panel');
         }
-
-        return $this->render('admin_panel/adminCreateDepot.html.twig' , ['depotForm' => $form]);
-    }*/
+        return $this->render('admin_panel/niveau.html.twig', ['form' => $form->createView()]);
+    }
 }
