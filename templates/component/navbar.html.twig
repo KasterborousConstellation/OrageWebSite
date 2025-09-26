@@ -14,7 +14,7 @@
 <div id="navbar" class="orage-navbar">
     {% set navitems = [["home","Accueil"],["lessons","Cours"],["exercices","Exercices"],["contact","Contact"],["team","Notre Equipe"]] %}
     <div id="nav-hamburger" class="navbar-mobile">
-        <img src={{ asset("images/list.svg") }} class="logo navbar-icon" alt="logo">
+        <img class="logo navbar-icon" src={{ asset("images/list.svg") }} alt="logo">
     </div>
     <script defer src={{ asset("JS/navbar.js") }}>
     </script>
@@ -30,6 +30,9 @@
                     <ul>
                         {% if is_granted("ROLE_ADMIN") %}
                             <li><a href="{{ url('app_admin_panel') }}">Dashboard Admin</a></li>
+                        {% endif %}
+                        {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_TEACHER") %}
+                            <li><a href="{{ url('app_teacher') }}">Espace Professeur</a></li>
                         {% endif %}
                         <li><a href="{{ url('app_profile') }}">Mon Profil</a></li>
                         <li><a href="{{ url('app_logout') }}">Déconnexion</a></li>

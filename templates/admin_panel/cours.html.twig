@@ -1,6 +1,8 @@
 {% extends 'admin_panel/index.html.twig' %}
 
 {% block admincontent %}
-    {% include "component/flashRenderer.html.twig"%}
+    {% include "component/flashRenderer.html.twig" %}
+    <h1 class ="category headtitle">Ajout d'un cours</h1>
+    <p class="text-danger">Ajouter un cours : ajoute un nouveau cours. Cette opération doit être validée par la commission pédagogique.</p>
     {% include "component/createCours.html.twig"%}
 {% endblock %}

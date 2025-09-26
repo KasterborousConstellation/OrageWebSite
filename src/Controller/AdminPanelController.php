@@ -121,9 +121,13 @@ final class AdminPanelController extends AbstractController
     #[Route('/admin/createLesson', name: 'app_admin_cours')]
     public function cours(Request $request,EntityManagerInterface $em) :Response{
         $form = $this->createForm('App\Form\CoursFormType');
-
+        $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-
+            $cours = $form->getData();
+            $cours->setVisibility(false);
+            $em->persist($cours);
+            $em->flush();
+            return $this->redirectToRoute('app_admin_panel');
         }
         return $this->render('admin_panel/cours.html.twig', ['cours_form' => $form->createView()]);
     }
@@ -145,8 +149,9 @@ final class AdminPanelController extends AbstractController
         $form = $this->createForm('App\Form\NiveauType');
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-            $category = $form->getData();
-            $em->persist($category);
+            $niveau = $form->getData();
+            $niveau->setOrdre(null);
+            $em->persist($niveau);
             $em->flush();
             $this->addFlash('success','Niveau crée.');
             return $this->redirectToRoute('app_admin_panel');

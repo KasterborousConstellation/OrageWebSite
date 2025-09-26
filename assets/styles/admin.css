@@ -6,7 +6,9 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     height: calc(100% - var(--navbar-height));
     width: max-content;
-    margin-top: 5px;
+    margin: 5px;
+    overflow-x: scroll;
+    max-width: 100%;
 }
 .sidebar-group{
     display: flex;
@@ -15,6 +17,7 @@
     height: 100%;
     gap: 10px;
 }
+
 .navbody{
     display: flex;
     flex-direction: row;

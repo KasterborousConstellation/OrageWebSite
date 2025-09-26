@@ -8,6 +8,7 @@ use App\Entity\Niveau;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,8 +25,9 @@ class CoursFormType extends AbstractType
             ])
             ->add('niveau', EntityType::class, [
                 'class' => Niveau::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nomNiveau',
             ])
+            ->add('submit',SubmitType::class, ['label' => 'Créer'])
         ;
     }
 

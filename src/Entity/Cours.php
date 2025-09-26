@@ -32,6 +32,9 @@ class Cours
     #[ORM\OneToMany(targetEntity: Chapitre::class, mappedBy: 'cours')]
     private Collection $cours;
 
+    #[ORM\Column]
+    private ?bool $visibility = null;
+
     public function __construct()
     {
         $this->cours = new ArrayCollection();
@@ -104,6 +107,18 @@ class Cours
                 $cour->setCours(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isVisibility(): ?bool
+    {
+        return $this->visibility;
+    }
+
+    public function setVisibility(bool $visibility): static
+    {
+        $this->visibility = $visibility;
 
         return $this;
     }
