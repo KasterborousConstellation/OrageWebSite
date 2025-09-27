@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Cours;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -21,7 +22,7 @@ final class LessonController extends AbstractController
     }
 
     #[Route('/', name: 'lessons', methods: ['GET'])]
-    public function index(): Response
+    public function index(Request $request): Response
     {
         // Récupérer tous les cours avec leurs relations
         $cours = $this->em->getRepository(Cours::class)->findAll();

@@ -5,17 +5,14 @@
     background-color: aliceblue;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     height: calc(100% - var(--navbar-height));
-    width: max-content;
+    width: 220px;
     margin: 5px;
     overflow-x: scroll;
     max-width: 100%;
 }
 .sidebar-group{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    gap: 10px;
+
+
 }
 
 .navbody{
@@ -73,4 +70,35 @@
     height: auto;
     flex-grow: 1;
     align-items: center;
+}
+.action-group{
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: #eceff4;
+    padding: 10px;
+    transition: width ease-in-out 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    justify-content: center;
+    align-content: center;
+}
+.action-group:not(.open):hover{
+    transform: scale(1.04);
+}
+.action{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.action-group:not(.open) .action{
+    height: 0;
+    display: none;
+}
+.action-group:has(.open) .action{
+    display: initial;
+
 }

@@ -68,6 +68,7 @@ body {
 
 .tree-node {
     margin-bottom: 0.5rem;
+    overflow-x: hidden;
 }
 
 .tree-toggle {
@@ -138,7 +139,8 @@ body {
     aspect-ratio: 1/1;
     width: 10px;
     margin-right: 5px;
-
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
     border-radius: 100%;
 }
 .tree-item-count {
