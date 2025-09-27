@@ -32,13 +32,13 @@ final class LessonController extends AbstractController
             $cat = $c->getCategorie()->getLibele();
             $niv = $c->getNiveau()->getNomNiveau();
 
-            if (!isset($arborescence[$cat])) {
-                $arborescence[$cat] = [];
+            if (!isset($arborescence[$niv])) {
+                $arborescence[$niv] = [];
             }
-            if (!isset($arborescence[$cat][$niv])) {
-                $arborescence[$cat][$niv] = [];
+            if (!isset($arborescence[$niv][$cat])) {
+                $arborescence[$niv][$cat] = [];
             }
-            $arborescence[$cat][$niv][] = $c;
+            $arborescence[$niv][$cat][] = $c;
         }
 
         // Récupérer les cours favoris de l'utilisateur connecté
