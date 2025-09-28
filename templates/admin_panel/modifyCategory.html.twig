@@ -1,0 +1,26 @@
+{% extends "admin_panel/index.html.twig" %}
+{% block title "Modification de categorie" %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/lesson.css') }}">
+{% endblock %}
+{% block admincontent %}
+    {% form_theme category_form 'bootstrap_4_layout.html.twig' %}
+
+    {{ form_start(category_form) }}
+    <div class="category-card">
+        <div class="category-title">
+            <span>{{ category.libele }}</span>
+        </div>
+        <div class="category-info">
+
+            <div class="category-actions">
+                {{ form_row(category_form.color) }}
+            </div>
+        </div>
+        <div class="pt-3 category-actions">
+            {{ form_row(category_form.submit) }}
+        </div>
+    </div>
+    {{ form_end(category_form) }}
+{% endblock %}

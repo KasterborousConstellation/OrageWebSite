@@ -1,5 +1,6 @@
 <?php
 namespace App\Controller;
+use App\Form\ModifyCategoryColorType;
 use App\Form\SearchFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -176,6 +177,14 @@ final class AdminPanelController extends AbstractController
             $this->addFlash('error',"Categorie introuvable !");
             return $this->redirectToRoute('app_admin_category_manage');
         }
-        return $this->redirectToRoute('app_admin_category_manage');
+        $form = $this->createForm(ModifyCategoryColorType::class, $category);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $category = $form->getData();
+            $em->persist($category);
+            $em->flush();
+            return $this->redirectToRoute('app_admin_category_manage');
+        }
+        return $this->render('admin_panel/modifyCategory.html.twig', ['category_form' => $form->createView(), 'category' => $category]);
     }
 }
