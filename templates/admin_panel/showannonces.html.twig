@@ -36,7 +36,7 @@
                     <a href={{ url('article',{'id' : ann.id })}} class="news-link">Voir l'article</a>
 
                     <a href={{ url('app_admin_announces_edit',{'id' : ann.id })}} class="news-link">Modifier l'article</a>
-                    {% if ann.visible %}<a class='news-link text-danger' href={{ url('app_admin_announces_visibility' , {'id' : ann.id } )}}>Cacher l'article</a>{% else %}<a href={{ url('app_admin_announces_visibility' , {'id' : ann.id } )}} class="news-link text-success">Publier l'article</a>{% endif %}
+                    {% if ann.visible %}<a class='news-link text-danger' href={{ url('app_admin_announces_visibility' , {'id' : ann.id } )}}>Cacher l'article</a>{% else %}<a class="news-link text-success" href={{ url('app_admin_announces_visibility' , {'id' : ann.id } )}} >Publier l'article</a>{% endif %}
                 </div>
             </div>
         {% endfor %}
