@@ -357,7 +357,14 @@ body {
     background: linear-gradient(135deg, #fbbf24, #f59e0b);
     color: #fff;
 }
-
+.badge-visibility-success{
+    background: linear-gradient(135deg, #9af693, #37ec2a);
+    color: #fff;
+}
+.badge-visibility-danger{
+    background: linear-gradient(135deg, #fd4040, #c81010);
+    color: #fff;
+}
 .badge-niveau {
     background: linear-gradient(135deg, #34d399, #10b981);
     color: #fff;
@@ -421,6 +428,7 @@ body {
     background: var(--orage_light_blue);
     color: #fff;
     transform: scale(1.05);
+    border: 2px solid var(--orage_light_blue) !important;
 }
 
 .btn-disabled {
@@ -579,4 +587,10 @@ body {
 
 .empty-message.active {
     display: block;
+}
+.course-content{
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
 }

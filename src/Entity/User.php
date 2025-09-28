@@ -63,6 +63,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\ManyToMany(targetEntity: TentativeQCM::class, mappedBy: 'tryQCM')]
     private Collection $tentatives;
+
+    /**
+     * @var Collection<int, Cours>
+     */
+    #[ORM\OneToMany(targetEntity: Cours::class, mappedBy: 'author')]
+    private Collection $author;
     public function getEmail(): ?string
     {
         return $this->email;
@@ -116,6 +122,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->createdAt = new \DateTimeImmutable(); // current date/time
         $this->annonces = new ArrayCollection();
         $this->tentatives = new ArrayCollection();
+        $this->author = new ArrayCollection();
     }
     /**
      * @param list<string> $roles
@@ -274,5 +281,46 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Cours>
+     */
+    public function getAuthor(): Collection
+    {
+        return $this->author;
+    }
+
+    public function addAuthor(Cours $author): static
+    {
+        if (!$this->author->contains($author)) {
+            $this->author->add($author);
+            $author->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAuthor(Cours $author): static
+    {
+        if ($this->author->removeElement($author)) {
+            // set the owning side to null (unless already changed)
+            if ($author->getAuthor() === $this) {
+                $author->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+    public function canModifyLesson(?Cours $lesson): bool{
+        if($lesson==null){
+            return false;
+        }
+        if(in_array('ROLE_ADMIN',$this->getRoles())){
+            return true;
+        }
+        //We verify that it's the right author. By ID (!important UNIQUE)
+        return in_array('ROLE_ADMIN',$this->getRoles()) && $lesson->getAuthor()->getId() == $this->getId();
+
     }
 }

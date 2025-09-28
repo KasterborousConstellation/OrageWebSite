@@ -125,6 +125,7 @@ final class AdminPanelController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $cours = $form->getData();
             $cours->setVisibility(false);
+            $cours->setAuthor($this->getUser());
             $em->persist($cours);
             $em->flush();
             return $this->redirectToRoute('app_admin_panel');
@@ -157,5 +158,24 @@ final class AdminPanelController extends AbstractController
             return $this->redirectToRoute('app_admin_panel');
         }
         return $this->render('admin_panel/niveau.html.twig', ['form' => $form->createView()]);
+    }
+    #[Route('/admin/showLesson', name: 'app_admin_lesson_show')]
+    public function showLesson(EntityManagerInterface $em): Response
+    {
+        $lessons = $em->getRepository('App\Entity\Cours')->findAll();
+        return $this->render('admin_panel/showLesson.html.twig', ['lesson_list' => $lessons]);
+    }
+    #[Route('/admin/manageCategories', name: 'app_admin_category_manage')]
+    public function manageCategories(Request $request,EntityManagerInterface $em):Response{
+        return $this->render('admin_panel/manageCategory.html.twig', ['categories' => $em->getRepository('App\Entity\Categorie')->findAll()]);
+    }
+    #[Route('/admin/category/modifyColor/{id}', name: 'category_color_modify')]
+    public function modifyCategoryColor(EntityManagerInterface $em,Request $request,int $id) :Response{
+        $category = $em->getRepository('App\Entity\Categorie')->find($id);
+        if(!$category){
+            $this->addFlash('error',"Categorie introuvable !");
+            return $this->redirectToRoute('app_admin_category_manage');
+        }
+        return $this->redirectToRoute('app_admin_category_manage');
     }
 }

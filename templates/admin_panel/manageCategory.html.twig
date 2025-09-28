@@ -1,0 +1,26 @@
+{% extends "admin_panel/index.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/lesson.css') }}">
+{% endblock %}
+{% block admincontent %}
+    <div class="category-container">
+        {%for category in categories %}
+            <div class="category-card">
+                <div class="category-title">
+                    <span>{{ category.libele }}</span>
+                </div>
+                <div class="category-info">
+                    <span>Couleur Actuelle: </span>
+                    <span class="category-color-info" style="background: {{ category.color }}"></span>
+                </div>
+                <div class="category-actions">
+                    <a class="btn btn-secondary" href={{ url('category_color_modify',{'id' : category.id}) }}>
+                        Modifier la couleur
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -3,11 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Cours;
+use App\Utils\RedirectUtils;
 use Doctrine\ORM\EntityManagerInterface;
+use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\ExpressionLanguage\Expression;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 //use App\Entity\UserFavoriteCourse;
 
@@ -25,7 +30,11 @@ final class LessonController extends AbstractController
     public function index(Request $request): Response
     {
         // Récupérer tous les cours avec leurs relations
-        $cours = $this->em->getRepository(Cours::class)->findAll();
+        $cours = $this->em->getRepository(Cours::class)
+            ->createQueryBuilder('l')
+            ->where('l.visibility = true')
+            ->getQuery()
+            ->getResult();
         $totalCours = count($cours);
         // Construire l'arborescence : Catégorie → Niveau → Cours
         $arborescence = [];
@@ -98,5 +107,43 @@ final class LessonController extends AbstractController
         return $this->render('lesson/exercices.html.twig', [
             'title' => 'Exercices - En construction',
         ]);
+    }
+
+    #[Route('/visibility/{id}', name: 'lessonVisibility', requirements: ['id' => '\d+'], methods: ['GET'])]
+    public function modifyVisibility(EntityManagerInterface $em,Request $request, int $id): RedirectResponse
+    {
+        $user = $this->getUser();
+        /*VERIFY Permissions*/
+        $lesson = $em->getRepository(Cours::class)->find($id);
+        if($lesson ==null){
+            $this->addFlash('error',"Ce cours n'existe pas.");
+            return $this->redirectToRoute('home');
+        }
+        if(!$user->canModifyLesson($lesson)){
+            $this->addFlash('error',"Vous n'avez pas la permission de modifier ce cours.");
+            return $this->redirectToRoute('home');
+        }
+        $lesson->setVisibility(!$lesson->isVisibility());
+        if($lesson->isVisibility()){
+            $lesson->setCreatedAt(new \DateTimeImmutable());
+        }
+        $em->persist($lesson);
+        $em->flush();
+        //Return to sender
+        return RedirectUtils::returnToSender($request);
+    }
+    #[Route('/{id}', name: 'lesson_show', methods: ['GET'])]
+    public function lesson_show(EntityManagerInterface $em,Request $request, int $id): Response{
+        $lesson = $em->getRepository(Cours::class)->find($id);
+        $user = $this->getUser();
+        if($lesson ==null){
+            $this->addFlash('error',"Ce cours n'existe pas.");
+            return $this->redirectToRoute('home');
+        }
+        if(!$lesson->isVisibility() and !$user->canModifyLesson($lesson)){
+            $this->addFlash('error',"Vous n'avez pas la permission de voir ce cours.");
+            return $this->redirectToRoute('home');
+        }
+        return $this->render('lesson/lessonShow.html.twig', ['lesson' => $lesson]);
     }
 }

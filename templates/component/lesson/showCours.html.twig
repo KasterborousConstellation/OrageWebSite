@@ -1,0 +1,69 @@
+<div class="main-content">
+    <section class="courses-section">
+        <div class="section-header">
+            <h2 class="section-title">Cours</h2>
+            <div class="results-info">
+                <span class="results-count" id="resultsCount"><strong>{{ lesson_list|length }}</strong> cours trouvés</span>
+            </div>
+        </div>
+        <!-- Grille des cours -->
+        <div class="courses-grid" id="coursesGrid">
+            {% for lesson in lesson_list %}
+                <article class="course-card">
+                    <div class="course-card-header">
+                        <h3 class="course-card-title">{{ lesson.nomCours }}</h3>
+                        <p class="course-card-subtitle">{{ lesson.getNiveau().getNomNiveau() }} /
+                        {% if lesson.createdAt %}
+                            {{ lesson.createdAt|format_datetime(locale='fr',pattern="MMMM YYYY") }}
+                        {% else %}
+                             Non-Publié
+                        {% endif %}
+                        </p>
+                    </div>
+                    <div class="course-card-body">
+                        <div class="course-badges">
+                                                <span class="course-badge badge-categorie" style="background: {{ lesson.categorie.color }}">
+                                                    {{ lesson.getCategorie().getLibele() }}
+                                                </span>
+                            <span class="course-badge badge-niveau">{{ lesson.getNiveau().getNomNiveau() }}</span>
+                            {% if lesson.visibility %}
+                                <span class="course-badge badge-visibility-success">
+                                        En ligne
+                                    </span>
+                            {% else %}
+                                {% if lesson.createdAt %}
+                                    <span class="course-badge badge-visibility-danger">
+                                        ⚠️Maintenance
+                                    </span>
+                                {% else %}
+                                <span class="course-badge badge-visibility-danger">
+                                        ⚠️En création
+                                </span>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                        <p class="course-description">
+                            Ce cours vous initie aux concepts fondamentaux de {{ lesson.nomCours }}.
+                            Explorez les notions essentielles et développez vos compétences.
+                        </p>
+                        <div class="course-actions">
+                            <!--- Visibility button --->
+                            {% if lesson.visibility %}
+                                <a class="btn btn-danger" href="{{ url('lessonVisibility',{'id' : lesson.id}) }}">
+                                    Mettre en maintenance
+                                </a>
+                            {% else %}
+                                <a class="btn btn-secondary btn-success" href="{{ url('lessonVisibility',{'id' : lesson.id}) }}">
+                                    Mettre en ligne
+                                </a>
+                            {% endif %}
+                            <a class="btn btn-secondary btn-info" href="{{ url('lesson_show',{'id' : lesson.id}) }}">
+                                Voir le cours
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
+</div>

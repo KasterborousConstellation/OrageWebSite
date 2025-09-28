@@ -7,47 +7,7 @@
 {% endblock %}
 {% block navbody %}
 {% block services %}
-<div class ="sidebar">
-    <div class="sidebar-group">
-        <div class ="action-group">
-            <p class="category">Management</p>
-            <div class="action">
-                <a class="orage-btn normalized-button" href="{{ path('app_admin_panel') }}">Admin Panel</a>
-            </div>
-            <div class="action">
-                <a class="orage-btn normalized-button" href="{{ path('app_admin_users') }}">Management Utilisateurs</a>
-            </div>
-        </div>
-        <div class ="action-group">
-            <p class="category">Annonces</p>
-            <div class="action">
-                <a class="orage-btn normalized-button" href="{{ path('app_admin_announces') }}">Création Annonces</a>
-            </div>
-            <div class="action">
-                <a class="orage-btn normalized-button" href="{{ path('app_admin_announces_show') }}">Gestion des Annonces</a>
-            </div>
-        </div>
-        <div class="action-group">
-            <p class="category">Cours</p>
-            <div class="action">
-                <a class="orage-btn normalized-button" href="{{ path('app_admin_niveau') }}">Création Niveau</a>
-            </div>
-            <div class="action">
-                <a class="orage-btn normalized-button" href="{{ path('app_admin_category') }}">Création Catégorie</a>
-            </div>
-            <div class="action">
-                <a class="orage-btn normalized-button" href="{{ path('app_admin_cours') }}">Création Cours</a>
-            </div>
-            <div class="action">
-                <a class="orage-btn normalized-button" href="{{ path('app_admin_cours') }}">Gestion des cours</a>
-            </div>
-        </div>
-        <div class="action-group">
-            <p class="category">Settings</p>
-        </div>
-
-    </div>
-</div>
+{% include "component/admin/sidebar.html.twig" %}
 <div class="main-content">
     {% block admincontent %}
     <h1 class ="headtitle category">Panel d'administration</h1>

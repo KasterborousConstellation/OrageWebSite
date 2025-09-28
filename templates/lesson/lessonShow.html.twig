@@ -1,0 +1,48 @@
+{% extends "oragePage.html.twig" %}
+{% block title lesson.nomCours %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/lesson.css') }}">
+{% endblock %}
+{% block navbody %}
+
+
+    <div class="main-content">
+        <div class="layout-grid">
+            <!--Sidebar-->
+            <div class="tree-container">
+                <h3 class="tree-title">
+                    <span class="tree-icon">📚</span>
+                    Chapitres
+                </h3>
+            </div>
+            <section class="courses-section">
+                <div class="section-header">
+                    <h1 class="section-title">{{ lesson.nomcours }}</h1>
+                </div>
+
+                <div class="course-badges">
+                    <span class="course-badge badge-categorie" style="background: {{ lesson.categorie.color }};">{{ lesson.categorie.libele }}</span>
+                    <span class="course-badge badge-niveau">{{ lesson.niveau.nomNiveau }}</span>
+                    <span class="course-badge results-count">{{ lesson.cours|length }} chapitres</span>
+                </div>
+                <div class="course-content">
+                    {% for chapters in lesson.cours %}
+                        
+                    {% endfor %}
+                    <div class="d-inline-flex  justify-content-center">
+                        {% include 'component/backlink.html.twig' %}
+                    </div>
+
+                </div>
+
+
+            </section>
+        </div>
+
+
+    </div>
+
+{% endblock %}
