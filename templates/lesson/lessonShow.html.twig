@@ -1,14 +1,10 @@
 {% extends "oragePage.html.twig" %}
 {% block title lesson.nomCours %}
-
-
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('styles/lesson.css') }}">
 {% endblock %}
 {% block navbody %}
-
-
     <div class="main-content">
         <div class="layout-grid">
             <!--Sidebar-->
@@ -30,7 +26,7 @@
                 </div>
                 <div class="course-content">
                     {% for chapters in lesson.cours %}
-                        
+
                     {% endfor %}
                     <div class="d-inline-flex  justify-content-center">
                         {% include 'component/backlink.html.twig' %}

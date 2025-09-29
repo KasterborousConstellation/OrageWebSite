@@ -320,7 +320,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             return true;
         }
         //We verify that it's the right author. By ID (!important UNIQUE)
-        return in_array('ROLE_ADMIN',$this->getRoles()) && $lesson->getAuthor()->getId() == $this->getId();
+        return in_array('ROLE_TEACHER',$this->getRoles()) && $lesson->getAuthor()->getId() == $this->getId();
 
     }
 }

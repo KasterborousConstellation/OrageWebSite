@@ -8,7 +8,7 @@
     <style>
         {% for niveaux, categorie in arborescence %}
             {% for category, cours_list in categorie %}
-                 /**/
+                 /* @IgnoreWarning */
                 .tree-item-{{ category }}::before{
                     background: {{ cours_list[0].categorie.color }};
                 }
