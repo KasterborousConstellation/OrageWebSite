@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\NiveauRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: NiveauRepository::class)]
@@ -89,5 +90,14 @@ class Niveau
         }
 
         return $this;
+    }
+    public function countOfLesson(?int $idc): int{
+        return $this->cours->filter(function (Cours $cour) use($idc){
+            if($cour->getCategorie()->getId()==$idc && $cour->isVisibility()){
+                return true;
+            }else{
+                return false;
+            }
+        })->count();
     }
 }

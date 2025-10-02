@@ -15,8 +15,8 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name',TextType::class,['error_bubbling' => true,'empty_data' => '','label' => 'Nom : '])
-            ->add('email', EmailType::class, ['error_bubbling' => true,'empty_data' => '', 'label' => 'Email : '])
+            ->add('name',TextType::class,['error_bubbling' => true,'empty_data' => '','label' => 'Nom'])
+            ->add('email', EmailType::class, ['error_bubbling' => true,'empty_data' => '', 'label' => 'Email'])
             ->add('message',TextareaType::class, [
                 'error_bubbling' => true,
                 'empty_data' => '',
@@ -27,7 +27,7 @@ class ContactType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Envoyer',
-                'attr' => ['class' => 'orage-btn orage-sm']
+                'attr' => ['class' => 'btn btn-secondary']
             ])
         ;
     }

@@ -6,11 +6,10 @@ document.addEventListener('DOMContentLoaded', () => {
     tousLesCours = Array.from(document.querySelectorAll('.course-card'));
 
     // On ouvre la première catégorie par défaut
-    const premierToggle = document.querySelector('.tree-toggle');
+    /*const premierToggle = document.querySelector('.tree-toggle');
     if (premierToggle) {
         basculerArborescence(premierToggle);
-    }
-
+    }*/
     // On attache les événements aux boutons d'arborescence
     document.querySelectorAll('.tree-toggle').forEach(toggle => {
         toggle.addEventListener('click', function () {
@@ -18,7 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
             filtrerParNiveau(this.dataset.niveau);
         });
     });
-
+    document.getElementById('search-button').onclick= () =>{
+        appliquerFiltre();
+    };
+    document.getElementById('search-input').onchange =()=>{
+        appliquerFiltre();
+    };
     // On attache les événements aux niveaux
     document.querySelectorAll('.tree-niveau').forEach(item => {
         item.addEventListener('click', function () {
@@ -38,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             gererTelechargement(courseId, courseName);
         });
     });
+    appliquerFiltre();
 });
 
 /**
@@ -118,16 +123,22 @@ function filtrerParNiveau(niveau) {
 function appliquerFiltre() {
     const etatVide = document.getElementById('emptyState');
     const grilleCours = document.getElementById('coursesGrid');
+    const search = removeAccents(document.getElementById('search-input').value.toLowerCase());
     let nombreCoursVisibles = 0;
-
     tousLesCours.forEach(carte => {
         const categorie = carte.dataset.category;
         const niveau = carte.dataset.niveau;
+        const name = carte.dataset.name;
         // On vérifie si le cours correspond au filtre
         const categorieOk = !filtreActif?.categorie || categorie === filtreActif.categorie;
         const niveauOk = !filtreActif?.niveau || niveau === filtreActif.niveau;
-
-        if (filtreActif && (!categorieOk || !niveauOk)) {
+        const textOk = (!search || search.length ===0 ||
+            removeAccents(name.toLowerCase()).includes(search)
+            ||
+            removeAccents(categorie.toLowerCase()).includes(search)
+            ||
+            removeAccents(niveau.toLowerCase()).includes(search));
+        if ((filtreActif||search||search.length>0) && (!categorieOk || !niveauOk||!textOk)) {
             carte.style.display = 'none';
         } else {
             carte.style.display = '';
@@ -177,7 +188,7 @@ function effacerFiltre() {
     compteur.innerHTML = `<strong>${tousLesCours.length}</strong> cours trouvés`;
 
     // On réaffiche la grille
-    document.getElementById('emptyState').style.display = 'none';
+
     document.getElementById('coursesGrid').style.display = 'grid';
 }
 
@@ -200,3 +211,5 @@ function gererTelechargement(courseId, courseName) {
         }, 1500);
     }
 }
+const removeAccents = str =>
+    str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');

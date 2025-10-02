@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Cours;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -28,6 +29,16 @@ final class ProfileController extends AbstractController
         }
         $request->getSession()->invalidate();
         $this->container->get('security.token_storage')->setToken(null);
+        $cours = $em->getRepository(Cours::class)
+            ->createQueryBuilder('l')
+            ->where('l.author = :user')
+            ->setParameter('user',$user)
+            ->getQuery()
+            ->getResult();
+        foreach ($cours as $l){
+            $l->setAuthor(null);
+            $em->persist($l);
+        }
         $em->remove($user);
         $em->flush();
         return $this->redirectToRoute('home');

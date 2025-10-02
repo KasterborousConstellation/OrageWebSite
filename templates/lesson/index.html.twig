@@ -6,17 +6,9 @@
     <link rel="stylesheet" href="{{ asset('styles/lesson.css') }}">
     <script defer src="{{ asset('JS/cours.js') }}"></script>
     <style>
-        {% for niveaux, categorie in arborescence %}
-            {% for category, cours_list in categorie %}
-                 /* @IgnoreWarning */
-                .tree-item-{{ category }}::before{
-                    background: {{ cours_list[0].categorie.color }};
-                }
-            {% endfor %}
-        {% endfor %}
+
     </style>
 {% endblock %}
-
 {% block body %}
     {% include "component/navbar.html.twig" %}
     <div class="navbody">
@@ -32,43 +24,65 @@
             <div class="layout-grid">
                 <!-- Menu d'arborescence -->
                 <aside class="tree-container">
-                    <h3 class="tree-title">
-                        <span class="tree-icon">📚</span>
-                        Parcourir les cours
-                    </h3>
+                    <div class="tree-title d-flex flex-column">
+                        <h3 class="d-flex">
+                            <span class="tree-icon">📚</span>
+                            <span>Parcourir les cours</span>
+                        </h3>
+                        <div class="tree-search">
+                            <div class="tree-search-input">
+                                <input id='search-input' type="search" name="q" placeholder="Recherche">
+                            </div>
+                            <button id="search-button" class="search-btn" type="submit">Rechercher</button>
+                        </div>
+                    </div>
+
+
                     <div class="tree-content">
-                        {% for niveaux, categorie in arborescence %}
+                        {% for niveau in levels %}
                             <div class="tree-node">
                                 <!-- Catégorie avec toggle -->
-                                <div class="tree-toggle" data-niveau="{{ niveaux }}">
-                                    <span class="tree-toggle-text">{{ niveaux }}</span>
+
+                                <div class="tree-toggle" data-niveau="{{ niveau.nomNiveau }}">
+                                    <span class="tree-toggle-text">{{ niveau.nomNiveau }}</span>
                                     <span class="tree-toggle-arrow">▸</span>
                                 </div>
+
                                 <div class="tree-children">
-                                    {% for category, cours_list in categorie %}
-                                        <!-- Niveau de cours -->
-                                        <div class="tree-item tree-niveau"
-                                             data-categorie="{{ category }}"
-                                             data-niveau="{{ niveaux }}">
+                                    {% for category in matiere %}
+                                        {% if niveau %}
+                                            {% set id = category.id %}
+                                            {% set amount = niveau.countOfLesson(id)  %}
+                                        {% else %}
+                                            {% set id =0 %}
+                                        {% endif %}
+                                        {% if amount >0 %}
+                                            <!-- Niveau de cours -->
+                                            <div class="tree-item tree-niveau"
+                                                 data-categorie="{{ category.libele }}"
+                                                 data-niveau="{{ niveau.nomNiveau }}">
+                                            <span
+                                                class="tree-item-text tree-item-{{ category.libele }}">{{ category.libele }}</span>
 
-                                            <span class="tree-item-text tree-item-{{ category }}">{{ category }}</span>
+                                                <span class="tree-item-count">(
 
-                                            <span class="tree-item-count">({{ cours_list|length }})</span>
-                                        </div>
+                                                {{ amount }}
+                                                )</span>
+                                            </div>
+                                        {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>
                         {% endfor %}
                     </div>
                 </aside>
-
                 <!-- Section principale des cours -->
                 <section class="courses-section">
                     <div class="section-header">
                         <h2 class="section-title">Cours disponibles</h2>
                         <div class="results-info">
                             <span class="results-count" id="resultsCount">
-                                <strong>{{ totalCours ?? 0 }}</strong> cours trouvés
+                                <strong>{{ cours|length }}</strong> cours trouvés
                             </span>
                         </div>
                     </div>
@@ -85,81 +99,55 @@
                     </div>
 
                     <!-- Message vide -->
-                    <div class="empty-state" id="emptyState" style="display: none;">
+                    <div class="empty-state" id="emptyState" style="display: {% if cours|length ==0 %}block{% else %} none{% endif %};">
                         <div class="empty-icon">🔍</div>
                         <p class="empty-message">Aucun cours trouvé avec les critères sélectionnés</p>
-                        <button class="hero-button" id="showAllCoursesBtn">Voir tous les cours</button>
+                        <a class="btn btn-secondary hero-button" id="showAllCoursesBtn" href={{ url('lessons') }}  >Voir tous les cours</a>
                     </div>
 
                     <!-- Grille des cours -->
                     <div class="courses-grid" id="coursesGrid">
-                        {% for niveau, categories in arborescence %}
-                            {% for categorie, cours_list in categories %}
-                                {% for cours in cours_list %}
-                                    <article class="course-card"
-                                             data-course-id="{{ cours.id }}"
-                                             data-category="{{ categorie }}"
-                                             data-niveau="{{ niveau }}">
-                                        <div class="course-card-header">
-                                            <h3 class="course-card-title">{{ cours.nomCours }}</h3>
-                                            <p class="course-card-subtitle">{{ cours.getNiveau().getNomNiveau() }}</p>
-                                        </div>
-                                        <div class="course-card-body">
-                                            <div class="course-badges">
-                                                <span class="course-badge badge-categorie" style="background: {{ cours.categorie.color }}">
-                                                    {{ cours.getCategorie().getLibele() }}
+                        {% for lesson in cours %}
+                            <article class="course-card"
+                                     data-course-id="{{ lesson.id }}"
+                                     data-category="{{ lesson.categorie.libele }}"
+                                     data-name ="{{ lesson.nomCours }}"
+                                     data-niveau="{{ lesson.niveau.nomNiveau }}">
+                                <div class="course-card-header">
+                                    <h3 class="course-card-title">{{ lesson.nomCours }}</h3>
+                                    <p class="course-card-subtitle">{{ lesson.getNiveau().getNomNiveau() }}</p>
+                                </div>
+                                <div class="course-card-body">
+                                    <div class="course-badges">
+                                                <span class="course-badge badge-categorie"
+                                                      style="background: {{ lesson.categorie.color }}99">
+                                                    {{ lesson.getCategorie().getLibele() }}
                                                 </span>
-                                                <span class="course-badge badge-niveau">
-                                                    {{ cours.getNiveau().getNomNiveau() }}
+                                        <span class="course-badge badge-niveau">
+                                                    {{ lesson.getNiveau().getNomNiveau() }}
                                                 </span>
-                                            </div>
+                                    </div>
 
-                                            <p class="course-description">
-                                                Ce cours vous initie aux concepts fondamentaux de {{ cours.nomCours }}.
-                                                Explorez les notions essentielles et développez vos compétences.
-                                            </p>
+                                    <p class="course-description">
+                                        Ce cours vous initie aux concepts fondamentaux de {{ lesson.nomCours }}.
+                                        Explorez les notions essentielles et développez vos compétences.
+                                    </p>
 
-                                            <div class="course-actions">
-                                                {% if cours.chapitres is defined and cours.chapitres|length > 0 %}
-                                                    {% set firstChapitre = cours.chapitres|first %}
-                                                    {% if firstChapitre.depots is defined and firstChapitre.depots|length > 0 %}
-                                                        {% set firstDepot = firstChapitre.depots|first %}
-                                                        <a href="{{ path('app_depot_show_latest', {'identifier': firstDepot.identifier}) }}"
-                                                           class="btn-course btn-primary">
-                                                            <span class="btn-icon">📖</span>
-                                                            Consulter
-                                                        </a>
-                                                    {% else %}
-                                                        <button class="btn-course btn-disabled" disabled>
-                                                            <span class="btn-icon">⏳</span>
-                                                            Bientôt disponible
-                                                        </button>
-                                                    {% endif %}
-                                                {% else %}
-                                                    <button class="btn-course btn-disabled" disabled>
-                                                        <span class="btn-icon">⏳</span>
-                                                        Bientôt disponible
-                                                    </button>
-                                                {% endif %}
+                                    <div class="course-actions">
 
-                                                <!-- Bouton de téléchargement -->
-                                                <button class="btn-course btn-secondary download-btn"
-                                                        data-course-id="{{ cours.id }}"
-                                                        data-course-name="{{ cours.nomCours|e('js') }}">
-                                                    <span class="btn-icon">📥</span>
-                                                    Télécharger
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </article>
-                                {% endfor %}
-                            {% endfor %}
+                                        <a class="btn btn-primary btn-course"
+                                           href={{ url('lesson_show',{'id' : lesson.id}) }}>
+                                            <span class="btn-icon"></span>
+                                            Voir le cours
+                                        </a>
+                                    </div>
+                                </div>
+                            </article>
                         {% endfor %}
                     </div>
                 </section>
             </div>
         </div>
     </div>
-
     {% include "component/footer.html.twig" %}
 {% endblock %}
