@@ -1,0 +1,22 @@
+{% extends 'oragePage.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/lesson.css') }}">
+{% endblock %}
+{% block navbody %}
+    <div class="headtitle">
+        <h1 class="orage-md">Ajouter un depot au chapitre: <span>{{ chapter.nomChapitre }}</span></h1>
+    </div>
+    <div class="courses-grid d-flex align-items-center justify-content-center">
+        <div class="course-card p-4">
+            {{ form_start(form) }}
+                {{ form_row(form.file) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.fileType) }}
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+{% endblock %}
+

@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\Categorie;
 use App\Entity\Chapitre;
 use App\Entity\Cours;
+use App\Entity\Depot;
 use App\Entity\Niveau;
 use App\Form\ChapitreFormType;
+use App\Form\FileInputType;
+use App\Repository\DepotRepository;
 use App\Utils\RedirectUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use JetBrains\PhpStorm\NoReturn;
@@ -136,5 +139,42 @@ final class LessonController extends AbstractController
             'form' => $form,
             'lesson' => $lesson
         ]);
+    }
+    #[Route('/addFile/{idl}-{idc}', name: 'lesson_chapter_depot_add', requirements: ['idl' => '\d+','idc' =>'\d+'], methods: ['GET','POST'])]
+    public function addDepotToChapter(EntityManagerInterface $em,Request $request, int $idc,int $idl): Response{
+        $cours = $em->getRepository(Cours::class)->createQueryBuilder('l')
+            ->leftJoin('l.cours','c')
+            ->where('l.id = :idl')
+            ->andWhere('c.id = :idc')
+            ->setParameter('idl',$idl)
+            ->setParameter('idc',$idc)
+            ->getQuery()
+            ->getOneOrNullResult();
+        $chapter = $em->getRepository(Chapitre::class)->find($idc);
+        if($chapter ==null||$cours ==null){
+            $this->addFlash('error',"Cet élement n'existe pas.");
+            return RedirectUtils::returnToSender($request);
+        }
+        $user = $this->getUser();
+        if(!$user or !$user->canModifyLesson($cours)) {
+            $this->addFlash('error','Vous n\'avez pas la permission de modifier ce cours.');
+            return $this->redirectToRoute('home');
+        }
+        $form= $this->createForm(FileInputType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $formResult = $form->getData();
+            $file = $formResult['file'];
+            $displayName = $formResult['name'];
+            $fileType = $formResult['fileType'];
+            $depot = $em->getRepository(Depot::class)->createDepotFromIdentifier(DepotRepository::generateRandomString(20),$file,$fileType);
+            $depot->setDisplayName($displayName);
+            $em->persist($depot);
+            $chapter->addDepot($depot);
+            $em->persist($chapter);
+            $em->flush();
+            return $this->redirectToRoute('lesson_show',['id'=>$cours->getId(),'modify'=>true]);
+        }
+        return $this->render('depot/addDepotToChapter.html.twig', ['form' => $form->createView(),'chapter'=>$chapter]);
     }
 }

@@ -1,17 +1,15 @@
 <?php
-
 namespace App\Repository;
-
 use App\Entity\Chapitre;
 use App\Entity\Depot;
-use App\Form\DepotType;
+use App\Entity\SupportedFileType;
+use App\Form\FileInputType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\File\File;
-
 /**
  * @extends ServiceEntityRepository<Depot>
  */
@@ -83,18 +81,28 @@ class DepotRepository extends ServiceEntityRepository
         $this->em->flush();
         return $depot;
     }
-
-    public function createDepotFromIdentifier(string $identifier,File $file): Depot
+    /*
+     * @param
+     */
+    public function createDepotFromIdentifier(string $identifier,File $file,SupportedFileType $fileType): Depot
     {
         $obj = $this->getLatestByIdentifier($identifier);
         $version = $obj ? $obj->getVersion() + 1 : 1;
-        return $this->createDepot($identifier, $version, $file);
+        return $this->createDepot($identifier, $version, $file,$fileType);
     }
-
+    public static function generateRandomString($length = 10) :string {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
     /**
      * @throws UniqueConstraintViolationException
      */
-    private function createDepot(string $identifier, int $version, File $file): Depot
+    private function createDepot(string $identifier, int $version, File $file,SupportedFileType $fileType): Depot
     {
         $intersection = $this->createQueryBuilder('u')->where('u.identifier = :identifier and u.version = :version')
             ->setParameter('version',$version)
@@ -105,12 +113,14 @@ class DepotRepository extends ServiceEntityRepository
             throw new UniqueConstraintViolationException();
         }
         $depot = new Depot();
-        $ext = $file->guessExtension();
-        $dir = "files/".serialize(bin2hex(random_bytes(18)));
-        $file->move($dir, $identifier . '_' . $version.'.'.$ext);
-        $depot->setPathPDF($dir .'/'. $identifier . '_' . $version.'.'.$ext);
+        $dir = "files/".$this->generateRandomString(20);
+        $name = str_replace(' ','_',$file->getClientOriginalName());
+        $file->move($dir, $name);
+        $depot->setPathPDF($dir .'/'. $name);
         $depot->setIdentifier($identifier);
         $depot->setVersion($version);
+        $depot->setFileType($fileType);
+        $depot->setDisplayName('FileNotNamed');
         $depot->setHeureDepot(new \DateTimeImmutable());
         $this->em->persist($depot);
         $this->em->flush();

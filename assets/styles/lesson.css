@@ -185,6 +185,9 @@ body {
 
 .section-title {
     position: relative;
+    display: inline-block;
+    vertical-align: center;
+    flex-direction: row;
     font-size: 1.875rem;
     font-weight: 700;
     color: var(--orage-navbar-color);
@@ -334,6 +337,7 @@ body {
 }
 
 .course-card-title {
+    display: contents;
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--orage-navbar-color);
@@ -607,4 +611,18 @@ body {
     flex-direction: column;
     justify-content: center;
     width: 100%;
+}
+.chapter-body{
+    position: relative;
+    padding: 0 1rem 1rem;
+}
+.chapter-body::before{
+    content: '';
+    position: absolute;
+    display: inline-block;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(90deg, var(--orage_light_blue), var(--orage_dark_blue));
 }

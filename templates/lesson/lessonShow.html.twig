@@ -15,33 +15,80 @@
                     Chapitres
                 </h3>
                 {% if modify %}
-                    <a class="btn btn-danger" href={{ url('lesson_chapter_add', {'id':lesson.id})}} >Ajouter un chapitre</a>
+                    <a class="btn btn-danger mb-3" href={{ url('lesson_chapter_add', {'id':lesson.id})}} >Ajouter un chapitre</a>
                 {% endif %}
+                <div class="tree-content overflow-hidden">
+                    {% for chapter in lesson.cours %}
+                        <div class="tree-item">
+                            <h3 class="course-card-title">Chapitre {{ chapter.ordre }}: {{ chapter.nomChapitre }}</h3>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
             <section class="courses-section">
                 <div class="section-header">
-                    <h1 class="section-title">{{ lesson.nomcours }}</h1>
-                    {% if user and user.canModifyLesson(lesson) and not modify %}
-                        <a class="btn btn-warning" href="{{ url('lesson_show',{'id' : lesson.id,'modify':true}) }}">Modifier</a>
-                    {% endif %}
+                    <div class="course-card-title">
+                        <h1 class="orage-lg">{{ lesson.nomcours }}</h1>
+                        {% if user and user.canModifyLesson(lesson) %}
+                            {% if lesson.visibility %}
+                                <a class="btn btn-danger" href="{{ url('lessonVisibility',{'id' : lesson.id}) }}">
+                                    Mettre en maintenance
+                                </a>
+                            {% else %}
+                                <a class="btn btn-secondary btn-success" href="{{ url('lessonVisibility',{'id' : lesson.id}) }}">
+                                    Mettre en ligne
+                                </a>
+                            {% endif %}
+                            {% if not modify %}
+                                <a class="btn btn-warning" href="{{ url('lesson_show',{'id' : lesson.id,'modify':true}) }}">Modifier</a>
+                            {% else %}
+                                <a class="btn btn-success" href="{{ url('lesson_show',{'id' : lesson.id,'modify':false}) }}">Fin de Modification</a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
                 </div>
-
                 <div class="course-badges">
                     <span class="course-badge badge-categorie" style="background: {{ lesson.categorie.color }};">{{ lesson.categorie.libele }}</span>
                     <span class="course-badge badge-niveau">{{ lesson.niveau.nomNiveau }}</span>
                     <span class="course-badge results-count">{{ lesson.cours|length }} chapitres</span>
+                    {% if lesson.visibility %}
+                        <span class="course-badge badge-visibility-success">
+                                        En ligne
+                                    </span>
+                    {% else %}
+                        {% if lesson.createdAt %}
+                            <span class="course-badge badge-visibility-danger">
+                                        ⚠️Maintenance
+                                    </span>
+                        {% else %}
+                            <span class="course-badge badge-visibility-danger">
+                                        ⚠️En création
+                                </span>
+                        {% endif %}
+                    {% endif %}
                 </div>
                 <div class="course-content">
                     {% for chapter in lesson.cours %}
                         <div class="">
                             <div class="">
-                                <h3 class="course-card-title">Chapitre {{ chapter.ordre }}: {{ chapter.nomChapitre }}</h3>
-                                <div class="course-badges">
-                                    {% for depot in chapter.getLastestDepots() %}
-                                        <div class="depot">
-                                            <a href={{ url('app_depot_show_latest',{'identifier': depot.identifier}) }}>Test</a>
-                                        </div>
-                                    {% endfor %}
+                                <div class="section">
+                                    <h3 class="course-card-title">Chapitre {{ chapter.ordre }}: {{ chapter.nomChapitre }}</h3>
+                                </div>
+                                <div class="chapter-body">
+                                    <div class="course-badge">
+                                        {% if modify %}
+                                            <a class="btn btn-warning btn-sm" href={{ url('lesson_chapter_depot_add',{'idl' : lesson.id, 'idc': chapter.id}) }}>Ajouter un depot</a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="course-content">
+                                        {% for depot in chapter.getLastestDepots() %}
+                                            {% set fileType = depot.filetype %}
+                                            <div class="depot">
+                                                <img src={{ asset('images/'~ fileType.icon) }} alt="{{ fileType.extname }}">
+                                                <a class="" href={{ url('app_depot_show_latest',{'identifier': depot.identifier}) }}>{{  depot.displayName}}</a>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -49,12 +96,8 @@
                     <div class="d-inline-flex  justify-content-center">
                         <a class="btn btn-secondary" href={{ url('lessons') }}>Retour</a>
                     </div>
-
                 </div>
             </section>
         </div>
-
-
     </div>
-
 {% endblock %}

@@ -26,6 +26,13 @@ class Depot
     #[ORM\Column(length: 255)]
     private ?string $identifier = null;
 
+    #[ORM\ManyToOne(inversedBy: 'depots')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?SupportedFileType $fileType = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $displayName = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +82,30 @@ class Depot
     public function setIdentifier(string $identifier): static
     {
         $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    public function getFileType(): ?SupportedFileType
+    {
+        return $this->fileType;
+    }
+
+    public function setFileType(?SupportedFileType $fileType): static
+    {
+        $this->fileType = $fileType;
+
+        return $this;
+    }
+
+    public function getDisplayName(): ?string
+    {
+        return $this->displayName;
+    }
+
+    public function setDisplayName(string $displayName): static
+    {
+        $this->displayName = $displayName;
 
         return $this;
     }
