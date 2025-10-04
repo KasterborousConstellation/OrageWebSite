@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ asset('styles/lesson.css') }}">
 {% endblock %}
 {% block navbody %}
+    {% include "component/flashRenderer.html.twig" %}
     <div class="main-content">
         <div class="layout-grid">
             <!--Sidebar-->
@@ -13,10 +14,16 @@
                     <span class="tree-icon">📚</span>
                     Chapitres
                 </h3>
+                {% if modify %}
+                    <a class="btn btn-danger" href={{ url('lesson_chapter_add', {'id':lesson.id})}} >Ajouter un chapitre</a>
+                {% endif %}
             </div>
             <section class="courses-section">
                 <div class="section-header">
                     <h1 class="section-title">{{ lesson.nomcours }}</h1>
+                    {% if user and user.canModifyLesson(lesson) and not modify %}
+                        <a class="btn btn-warning" href="{{ url('lesson_show',{'id' : lesson.id,'modify':true}) }}">Modifier</a>
+                    {% endif %}
                 </div>
 
                 <div class="course-badges">
@@ -25,16 +32,25 @@
                     <span class="course-badge results-count">{{ lesson.cours|length }} chapitres</span>
                 </div>
                 <div class="course-content">
-                    {% for chapters in lesson.cours %}
-
+                    {% for chapter in lesson.cours %}
+                        <div class="">
+                            <div class="">
+                                <h3 class="course-card-title">Chapitre {{ chapter.ordre }}: {{ chapter.nomChapitre }}</h3>
+                                <div class="course-badges">
+                                    {% for depot in chapter.getLastestDepots() %}
+                                        <div class="depot">
+                                            <a href={{ url('app_depot_show_latest',{'identifier': depot.identifier}) }}>Test</a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
                     {% endfor %}
                     <div class="d-inline-flex  justify-content-center">
-                        {% include 'component/backlink.html.twig' %}
+                        <a class="btn btn-secondary" href={{ url('lessons') }}>Retour</a>
                     </div>
 
                 </div>
-
-
             </section>
         </div>
 

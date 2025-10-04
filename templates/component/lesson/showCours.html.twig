@@ -57,8 +57,11 @@
                                     Mettre en ligne
                                 </a>
                             {% endif %}
-                            <a class="btn btn-secondary btn-info" href="{{ url('lesson_show',{'id' : lesson.id}) }}">
+                            <a class="btn btn-primary" href="{{ url('lesson_show',{'id' : lesson.id}) }}">
                                 Voir le cours
+                            </a>
+                            <a class="btn btn-warning" href="{{ url('lesson_show',{'id' : lesson.id, 'modify': true}) }}">
+                                Modifier le cours
                             </a>
                         </div>
                     </div>

@@ -34,6 +34,9 @@ class Chapitre
     #[ORM\ManyToMany(targetEntity: FicheExercice::class, mappedBy: 'ChapitreRequis')]
     private Collection $exercicesneedchapter;
 
+    #[ORM\Column]
+    private ?int $ordre = null;
+
     public function __construct()
     {
         $this->depots = new ArrayCollection();
@@ -130,5 +133,27 @@ class Chapitre
             }
         }
         return $latest;
+    }
+
+    public function getOrdre(): ?int
+    {
+        return $this->ordre;
+    }
+
+    public function setOrdre(int $ordre): static
+    {
+        $this->ordre = $ordre;
+
+        return $this;
+    }
+    public function getLastestDepots(): array{
+        $dictionnary = [];
+        foreach($this->depots as $depot){
+            if(!array_key_exists($depot->getIdentifier(),$dictionnary) || $dictionnary[$depot->getIdentifier()]->getVersion() < $depot->getVersion())
+            {
+                $dictionnary[$depot->getIdentifier()] = $depot;
+            }
+        }
+        return array_values($dictionnary);
     }
 }

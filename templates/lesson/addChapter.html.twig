@@ -1,0 +1,20 @@
+{% extends "oragePage.html.twig"%}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/lesson.css') }}">
+{% endblock %}
+{% block title title %}
+{% block navbody %}
+    {% include "component/flashRenderer.html.twig" %}
+    <div class="main-content">
+        <div class="container">
+            <h2>Ajouter un chapitre au cours : {{ lesson.nomCours }}</h2>
+            <div class="course-card">
+                {% form_theme form 'bootstrap_4_layout.html.twig' %}
+                <div class="course-card-body">
+                    {{ form(form) }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

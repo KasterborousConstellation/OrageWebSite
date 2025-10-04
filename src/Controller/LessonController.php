@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Categorie;
+use App\Entity\Chapitre;
 use App\Entity\Cours;
 use App\Entity\Niveau;
+use App\Form\ChapitreFormType;
 use App\Utils\RedirectUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use JetBrains\PhpStorm\NoReturn;
@@ -82,14 +84,57 @@ final class LessonController extends AbstractController
     public function lesson_show(EntityManagerInterface $em,Request $request, int $id): Response{
         $lesson = $em->getRepository(Cours::class)->find($id);
         $user = $this->getUser();
+        $modify = $request->get('modify', false);
         if($lesson ==null){
             $this->addFlash('error',"Ce cours n'existe pas.");
             return $this->redirectToRoute('home');
         }
-        if(!$lesson->isVisibility() and (!$user or !$user->canModifyLesson($lesson))){
+        if((!$lesson->isVisibility() or $modify) and (!$user or !$user->canModifyLesson($lesson))){
             $this->addFlash('error',"Vous n'avez pas la permission de voir ce cours.");
             return $this->redirectToRoute('home');
         }
-        return $this->render('lesson/lessonShow.html.twig', ['lesson' => $lesson]);
+        if($user and $modify){
+            $this->addFlash('info',"Vous êtes en mode modification.");
+        }
+        return $this->render('lesson/lessonShow.html.twig', ['lesson' => $lesson,'modify'=>$modify, 'user'=>$user]);
+    }
+    #[Route('/addChapter/{id}', name: 'lesson_chapter_add', requirements: ['id' => '\d+'], methods: ['GET','POST'])]
+    public function editChapter(EntityManagerInterface $em,Request $request, int $id): Response
+    {
+        $user = $this->getUser();
+
+        /*VERIFY Permissions*/
+        $lesson = $em->getRepository(Cours::class)->find($id);
+        if($lesson ==null){
+            $this->addFlash('error',"Ce cours n'existe pas.");
+            return $this->redirectToRoute('home');
+        }
+        if(!$user or !$user->canModifyLesson($lesson)) {
+            $this->addFlash('error', "Vous n'avez pas la permission de modifier ce cours.");
+            return $this->redirectToRoute('home');
+        }
+        $form = $this->createForm(ChapitreFormType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $chapter = $form->getData();
+            $chapter->setCours($lesson);
+            $max=0;
+            $lesson->getCours()->map(function (Chapitre $chapter) use (&$max) {
+                if($chapter->getOrdre() > $max) {
+                    $max = $chapter->getOrdre();
+                }
+            });
+            $max+=1;
+            $chapter->setOrdre($max);
+            $this->em->persist($chapter);
+            $this->em->flush();
+            $this->addFlash('success',"Le chapitre a été ajouté avec succès.");
+            return $this->redirectToRoute('lesson_show',['id'=>$lesson->getId(),'modify'=>true]);
+        }
+        return $this->render('lesson/addChapter.html.twig', [
+            'title' => 'Ajouter un chapitre - En construction',
+            'form' => $form,
+            'lesson' => $lesson
+        ]);
     }
 }
