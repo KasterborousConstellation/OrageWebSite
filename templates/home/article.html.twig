@@ -9,15 +9,18 @@
 {% endblock %}
 {% block navbody %}
     {% include "component/flashRenderer.html.twig" %}
-    <div>
-        <section class="article-section orage-section-margin main-content">
+    <div class="d-flex justify-content-center">
+        <section class="article-section orage-section-margin ">
             <h2 class="category">{{ ann.title }}</h2>
             <p class="news-description">Crée par : {{ ann.author.firstname}} {{  ann.author.lastname }}</p>
             <p class="news-date article-meta">Publié le : {{ ann.createdAt|format_datetime(locale='fr', pattern="EEEE dd MMMM YYYY") }}</p>
             <div class="article-content">
                 {{ ann.content|raw }}
             </div>
-            <a href="{{ url('home') }}" class="back-link">← Retour à l'accueil</a>
+            <div>
+                <a href="{{ url('home') }}" class="btn btn-secondary">← Retour à l'accueil</a>
+            </div>
+
         </section>
     </div>
 {% endblock %}

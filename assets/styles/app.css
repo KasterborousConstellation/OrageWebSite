@@ -243,3 +243,12 @@ h2{
     font-weight: 600;
     text-align: center;
 }
+
+.article-section{
+    background: #fff;
+    padding: 2rem;
+    border-radius: 15px;
+}
+.article-content{
+    margin-bottom: 1rem
+}

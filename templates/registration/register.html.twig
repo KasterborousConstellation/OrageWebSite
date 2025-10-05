@@ -37,11 +37,11 @@
             {{ form_row(registrationForm.plainPassword, {
                 label: 'Mot de passe', attr : {class :"d-flex flex-column"}
             }) }}
-
         </div>
         <p class="category w-100"> Confirmation </p>
         <div class="d-flex gap-3 flex-column align-items-center register-group">
             {{ form_row(registrationForm.agreeTerms) }}
+            <a class="btn btn-secondary" href="{{ url('app_privacy') }}">CGU</a>
             <div>
                 <button type="submit" class="orage-btn">Créer un compte</button>
             </div>

@@ -12,17 +12,17 @@
     {% set profile ="images/unsigned.svg" %}
 {% endif %}
 <div id="navbar" class="orage-navbar">
-    {% set navitems = [["home","Accueil"],["lessons","Cours"],["exercices","Exercices"],["contact","Contact"],["team","Notre Equipe"]] %}
+    {% set navitems = [["home","Accueil"],["lessons","Cours"],["contact","Contact"],["team","Notre Equipe"]] %}
     <div id="nav-hamburger" class="navbar-mobile">
-        <img class="logo navbar-icon" src={{ asset("images/list.svg") }} alt="logo">
+        <img class="logo navbar-icon" src='{{ asset("images/list.svg") }}' alt="logo">
     </div>
     <script defer src={{ asset("JS/navbar.js") }}>
     </script>
     {# Balances items in the two containers #}
     <div class="navbar-item-container">
         <div class="navbar-item profile-container">
-            <a {% if not app.user %} href={{ url("app_login") }} {% endif %} class="button-profile">
-                <img src={{ asset(profile) }} alt="profile" class="orage-icon">
+            <a {% if not app.user %} href='{{ url("app_login") }} {% endif %}' class="button-profile">
+                <img src='{{ asset(profile) }}' alt="profile" class="orage-icon">
                 <span>{{ orage_text }}</span>
             </a>
             {% if app.user %}
@@ -48,7 +48,7 @@
         {% endfor %}
     </div>
     <div class="navbarlogo">
-        <img src={{ asset("images/logo.png") }} alt="logo" class="logo">
+        <img src='{{ asset("images/logo.png") }}' alt="logo" class="logo">
         <p>ORAGE</p>
     </div>
     <div class="navbar-item-container">
