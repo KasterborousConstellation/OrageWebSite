@@ -15,7 +15,19 @@ class CoursRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Cours::class);
     }
-
+    public function findLatestWithFirstDepot(): ?Cours
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.categorie', 'cat')
+            ->leftJoin('c.niveau', 'n')
+            ->addSelect('cat', 'n')
+            ->where('c.visibility = :visible')
+            ->setParameter('visible', true)
+            ->orderBy('c.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
     //    /**
     //     * @return Cours[] Returns an array of Cours objects
     //     */

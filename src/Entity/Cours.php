@@ -153,4 +153,46 @@ class Cours
 
         return $this;
     }
+    /**
+     * Récupère le premier dépôt disponible pour ce cours
+     * en parcourant tous les chapitres
+     */
+    public function getFirstAvailableDepot(): ?Depot
+    {
+        foreach ($this->cours as $chapitre) {
+            $depot = $chapitre->getLatestDepot();
+            if ($depot) {
+                return $depot;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Vérifie si le cours a au moins un dépôt disponible
+     */
+    public function hasAvailableDepot(): bool
+    {
+        return $this->getFirstAvailableDepot() !== null;
+    }
+
+    /**
+     * Récupère tous les dépôts de ce cours, triés par date
+     */
+    public function getAllDepots(): array
+    {
+        $depots = [];
+        foreach ($this->cours as $chapitre) {
+            foreach ($chapitre->getDepots() as $depot) {
+                $depots[] = $depot;
+            }
+        }
+
+        // Tri par date de dépôt, du plus récent au plus ancien
+        usort($depots, function($a, $b) {
+            return $b->getHeureDepot() <=> $a->getHeureDepot();
+        });
+
+        return $depots;
+    }
 }
