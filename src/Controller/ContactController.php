@@ -26,7 +26,7 @@ final class ContactController extends AbstractController
     {
         /**
          * This route is used to render the contact mail page.
-         * 
+         *
          */
         $data = new ContactDTO();
         $form = $this->createForm(ContactType::class, $data);
@@ -34,13 +34,13 @@ final class ContactController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             //Envoyer le mail
             $email = (new Email())
-                ->from($data->email)
+                ->from('noreply@asso-orage.fr')
                 ->to('contact@asso-orage.fr')
                 ->subject('Contact depuis le site web')
                 ->text($data->message)
                 ->html('<p>Nom: ' . $data->name . '</p><p>Email: ' . $data->email . '</p><p>Message: ' . nl2br($data->message) . '</p>');
             $mailer->send($email);
-            
+
             $this->addFlash('success', 'Votre ticket a été envoyé avec succès !');
             return $this->redirectToRoute('contact');
         }
