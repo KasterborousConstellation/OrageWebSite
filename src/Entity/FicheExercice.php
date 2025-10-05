@@ -41,6 +41,7 @@ class FicheExercice
      * @var Collection<int, Chapitre>
      */
     #[ORM\ManyToMany(targetEntity: Chapitre::class, inversedBy: 'exercicesneedchapter')]
+    #[ORM\JoinColumn(onDelete: 'cascade')]
     private Collection $ChapitreRequis;
 
     public function __construct()

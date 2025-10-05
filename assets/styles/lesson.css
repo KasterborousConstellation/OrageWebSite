@@ -626,3 +626,27 @@ body {
     width: 2px;
     background: linear-gradient(90deg, var(--orage_light_blue), var(--orage_dark_blue));
 }
+.chapter-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.chapter-header-command, .chapter-header-command img {
+    height: 25px;
+}
+.chapter-header-command .up-command{
+    filter: invert(38%) sepia(100%) hue-rotate(59.5deg) saturate(700%);
+}
+.chapter-header-command .down-command{
+    filter: invert(38%) sepia(100%) hue-rotate(300.5deg) saturate(9000%);
+}
+.edit-icon {
+    filter: invert(40%) sepia(100%) hue-rotate(200.5deg) saturate(8000%);
+}
+.delete-icon{
+    filter: invert(55%) sepia(100%) hue-rotate(320.5deg) saturate(1600%);
+}

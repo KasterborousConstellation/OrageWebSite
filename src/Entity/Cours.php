@@ -30,6 +30,7 @@ class Cours
      * @var Collection<int, Chapitre>
      */
     #[ORM\OneToMany(targetEntity: Chapitre::class, mappedBy: 'cours')]
+    #[ORM\OrderBy(["ordre" => "ASC"])]
     private Collection $cours;
 
     #[ORM\Column]
