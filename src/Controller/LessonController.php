@@ -303,7 +303,7 @@ final class LessonController extends AbstractController
             }
             $em->persist($data);
             $em->flush();
-            return $this->redirectToRoute('lesson_show',['id'=>$idc,'modify'=>true]);
+            return $this->redirectToRoute('lesson_show',['id'=>$idl,'modify'=>true]);
         }
         return $this->render('lesson/editChapter.html.twig',['form'=>$form->createView(),'title'=>'Modification de chapitre','chapter'=>$chapter]);
     }

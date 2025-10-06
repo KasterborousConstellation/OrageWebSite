@@ -60,49 +60,76 @@
         <section class="latest-additions-section orage-section-margin">
             <h2 class="section-title">Nos Derniers Ajouts</h2>
             <div class="latest-additions-grid">
-                {# Dernier Cours #}
-                {% for lesson in dernierCours %}
-                    <div class="addition-card">
-                        <div class="addition-image" style="
-                            background: {{ lesson.categorie.color }};
-                            height: 200px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            color: white;
-                            font-weight: bold;
-                            font-size: 1.1em;
-                            text-align: center;
-                            padding: 0.5em;
-                            line-height: 1.3;
-                            ">
-                            {{ lesson.nomCours }}
-                        </div>
-                        <h3 class="addition-title">Nouveau Cours : {{ lesson.nomCours }}</h3>
-                        <p class="addition-description">
-                            Cours de <strong>{{ lesson.categorie.libele }}</strong>
-                            pour le niveau <strong>{{ lesson.niveau.nomNiveau }}</strong>.
-                        </p>
-
-                        {# Accèder au cours #}
-                        <a href="{{ path('lesson_show', {'id': lesson.id}) }}" class="addition-link">
-                                Accéder au cours →
-                        </a>
-
+                {% if dernierCours|length ==0 %}
+                <div class="addition-card">
+                    <div class="addition-image" style="
+                        background: grey;
+                        height: 200px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        font-weight: bold;
+                        font-size: 1.1em;
+                        text-align: center;
+                        padding: 0.5em;
+                        line-height: 1.3;
+                        ">
+                        Aucun cours récent
                     </div>
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-icon">🔍</div>
+                        <p class="empty-message">Aucun cours récent n'a été publié</p>
+                        <a class="btn btn-secondary hero-button" id="showAllCoursesBtn" href={{ url('lessons') }}  >Voir tous les cours</a>
+                    </div>
+                </div>
                 {% else %}
-                    <div class="addition-card">
-                        <div class="addition-image" style="background: #e0e0e0; height: 200px; display: flex; align-items: center; justify-content: center; color: #666;">
-                            Aucun cours
-                        </div>
-                        <h3 class="addition-title">Aucun cours disponible</h3>
-                        <p class="addition-description">Les premiers cours seront bientôt en ligne !</p>
-                    </div>
-                {% endfor %}
+                    {# Dernier Cours #}
+                    {% for lesson in dernierCours %}
+                        <div class="addition-card">
+                            <div class="addition-image" style="
+                                background: {{ lesson.categorie.color }};
+                                height: 200px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: white;
+                                font-weight: bold;
+                                font-size: 1.1em;
+                                text-align: center;
+                                padding: 0.5em;
+                                line-height: 1.3;
+                                ">
+                                {{ lesson.nomCours }}
+                            </div>
+                            <h3 class="addition-title">Nouveau Cours : {{ lesson.nomCours }}</h3>
+                            <p class="addition-description">
+                                Cours de <strong>{{ lesson.categorie.libele }}</strong>
+                                pour le niveau <strong>{{ lesson.niveau.nomNiveau }}</strong>.
+                            </p>
 
+                            {# Accèder au cours #}
+                            <a href="{{ path('lesson_show', {'id': lesson.id}) }}" class="addition-link">
+                                Accéder au cours →
+                            </a>
+
+                        </div>
+                    {% else %}
+                        <div class="addition-card">
+                            <div class="addition-image"
+                                 style="background: #e0e0e0; height: 200px; display: flex; align-items: center; justify-content: center; color: #666;">
+                                Aucun cours
+                            </div>
+                            <h3 class="addition-title">Aucun cours disponible</h3>
+                            <p class="addition-description">Les premiers cours seront bientôt en ligne !</p>
+                        </div>
+                    {% endfor %}
+
+                {% endif %}
                 {# Dernier Exercice - Section à compléter selon vos besoins #}
                 <div class="addition-card">
-                    <div class="addition-image" style="background: #f0f0f0; height: 200px; display: flex; align-items: center; justify-content: center; color: #666;">
+                    <div class="addition-image"
+                         style="background: #f0f0f0; height: 200px; display: flex; align-items: center; justify-content: center; color: #666;">
                         <i class="fas fa-clipboard-list" style="font-size: 3em;"></i>
                     </div>
                     <h3 class="addition-title">Nouveaux Exercices</h3>
@@ -138,7 +165,7 @@
                                 {{ ann.slug }}
                             </p>
                             <p class="news-date">{{ ann.createdAt|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") }}</p>
-                            <a href={{ url('article', {'id' : ann.id})}} class="news-link">Lire l'article</a>
+                            <a href={{ url('article', {'id' : ann.id}) }} class="news-link">Lire l'article</a>
                         </div>
                     </div>
                 {% endfor %}

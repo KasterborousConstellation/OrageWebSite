@@ -6,7 +6,11 @@
     <link rel="stylesheet" href="{{ asset('styles/lesson.css') }}">
     <script defer src="{{ asset('JS/cours.js') }}"></script>
     <style>
-
+        {% for category in matiere %}
+            {{'.tree-item-' ~ category.libele ~':before {
+                background: '~ category.color ~';
+            }' }}
+        {% endfor %}
     </style>
 {% endblock %}
 {% block body %}
@@ -36,8 +40,6 @@
                             <button id="search-button" class="search-btn" type="submit">Rechercher</button>
                         </div>
                     </div>
-
-
                     <div class="tree-content">
                         {% for niveau in levels %}
                             <div class="tree-node">
