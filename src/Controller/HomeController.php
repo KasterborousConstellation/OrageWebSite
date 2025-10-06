@@ -7,16 +7,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\CoursRepository;
 
 final class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(EntityManagerInterface $em,Request $request): Response
+    public function index(EntityManagerInterface $em,Request $request, CoursRepository $coursRepository): Response
     {
+        $dernierCours = $coursRepository->findLatestWithFirstDepot();
         $repo = $em->getRepository('App\Entity\Annonce');
         $annonces = $repo->createQueryBuilder('u')->andWhere('u.visible = true','CURRENT_TIMESTAMP() < u.expirateAt')->orderBy('u.createdAt', 'DESC')->setMaxResults(10)->getQuery()->getResult();
         return $this->render("home/index.html.twig", [
-            "annonces" => $annonces
+            "annonces" => $annonces,
+            'dernierCours' => $dernierCours,
         ]);
     }
     #[Route('/article/{id}', name: 'article', requirements: ['id'=> '\d+'])]

@@ -57,35 +57,68 @@
         </section>
 
         {# Section Derniers Ajouts (Cours & Exercices) #}
-        {# A refaire éventuellement avec des requêtes BD #}
         <section class="latest-additions-section orage-section-margin">
             <h2 class="section-title">Nos Derniers Ajouts</h2>
             <div class="latest-additions-grid">
                 {# Dernier Cours #}
+                {% if dernierCours %}
+                    <div class="addition-card">
+                        <div class="addition-image" style="
+                            background: {{ dernierCours.categorie.color }};
+                            height: 200px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: white;
+                            font-weight: bold;
+                            font-size: 1.1em;
+                            text-align: center;
+                            padding: 0.5em;
+                            line-height: 1.3;
+                            ">
+                            {{ dernierCours.nomCours }}
+                        </div>
+                        <h3 class="addition-title">Nouveau Cours : {{ dernierCours.nomCours }}</h3>
+                        <p class="addition-description">
+                            Cours de <strong>{{ dernierCours.categorie.libele }}</strong>
+                            pour le niveau <strong>{{ dernierCours.niveau.nomNiveau }}</strong>.
+                        </p>
+
+                        {# Recherche du premier dépôt disponible #}
+                        {% set firstDepot = dernierCours.firstAvailableDepot %}
+
+                        {% if firstDepot %}
+                            <a href="{{ path('app_depot_show_latest', {'identifier': firstDepot.identifier}) }}" class="addition-link">
+                                Accéder au cours →
+                            </a>
+                        {% else %}
+                            <span class="addition-link disabled">Bientôt disponible</span>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="addition-card">
+                        <div class="addition-image" style="background: #e0e0e0; height: 200px; display: flex; align-items: center; justify-content: center; color: #666;">
+                            Aucun cours
+                        </div>
+                        <h3 class="addition-title">Aucun cours disponible</h3>
+                        <p class="addition-description">Les premiers cours seront bientôt en ligne !</p>
+                    </div>
+                {% endif %}
+
+                {# Dernier Exercice - Section à compléter selon vos besoins #}
                 <div class="addition-card">
-                    <img src="https://placehold.co/400x250/E0F2FE/2563EB?text=Cours+Placeholder"
-                         alt="Placeholder pour un cours" class="addition-image">
-                    <h3 class="addition-title">Nouveau Cours : Abcd</h3>
+                    <div class="addition-image" style="background: #f0f0f0; height: 200px; display: flex; align-items: center; justify-content: center; color: #666;">
+                        <i class="fas fa-clipboard-list" style="font-size: 3em;"></i>
+                    </div>
+                    <h3 class="addition-title">Nouveaux Exercices</h3>
                     <p class="addition-description">
-                        Une ô combien jolie description, qui pourrait éventuellement être basée sur une requête à la
-                        base de données.
+                        Des exercices pratiques pour consolider vos apprentissages seront bientôt disponibles.
                     </p>
-                    <a href="#" class="addition-link">Accéder au cours →</a>
-                </div>
-                {# Dernier Exercice #}
-                <div class="addition-card">
-                    <img src="https://placehold.co/400x250/FEE2E2/DC2626?text=Exercice+Placeholder"
-                         alt="Placeholder pour un exercice" class="addition-image">
-                    <h3 class="addition-title">Nouvel Exercice : Abcd</h3>
-                    <p class="addition-description">
-                        Une ô combien jolie description, qui pourrait éventuellement être basée sur une requête à la
-                        base de données.
-                    </p>
-                    <a href="#" class="addition-link">Commencer l'exercice
-                        →</a> {# Il faudrait ici rajouter le lien vers l'exercice en question #}
+                    <a href="{{ path('exercices') }}" class="addition-link">Découvrir les exercices →</a>
                 </div>
             </div>
         </section>
+
 
         {# Section Dernières Nouveautés (Événements) #}
         <section class="latest-news-section orage-section-margin">

@@ -1,9 +1,43 @@
-<!-- <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://www.example.com/foo.html</loc>
-    <lastmod>2022-06-04</lastmod>
-  </url>
+    <url>
+        <loc>http://asso-orage.fr/login</loc>
+        <lastmod>2025-10-05</lastmod>
+    </url>
+    <url>
+        <loc>http://asso-orage.fr/</loc>
+        <lastmod>2025-10-05</lastmod>
+    </url>
+    <url>
+        <loc>http://asso-orage.fr/lesson/</loc>
+        <lastmod>2025-10-05</lastmod>
+    </url>
+    <url>
+        <loc>http://asso-orage.fr/contact</loc>
+        <lastmod>2025-10-05</lastmod>
+    </url>
+    <url>
+        <loc>http://asso-orage.fr/team</loc>
+        <lastmod>2025-10-05</lastmod>
+    </url>
+    <url>
+        <loc>http://asso-orage.fr/article/1</loc>
+        <lastmod>2025-10-05</lastmod>
+    </url>
+    <url>
+        <loc>http://asso-orage.fr/privacy</loc>
+        <lastmod>2025-10-05</lastmod>
+    </url>
+    <url>
+        <loc>http://asso-orage.fr/register</loc>
+        <lastmod>2025-10-05</lastmod>
+    </url>
+    <url>
+        <loc>http://asso-orage.fr/contact/faq</loc>
+        <lastmod>2025-10-05</lastmod>
+    </url>
+    <url>
+        <loc>http://asso-orage.fr/contact/mail</loc>
+        <lastmod>2025-10-05</lastmod>
+    </url>
 </urlset>
-TODO: generate the correct sitemap just before publishing
--->
