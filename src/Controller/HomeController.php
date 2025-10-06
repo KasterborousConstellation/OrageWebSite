@@ -14,7 +14,13 @@ final class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(EntityManagerInterface $em,Request $request, CoursRepository $coursRepository): Response
     {
-        $dernierCours = $coursRepository->findLatestWithFirstDepot();
+        $dernierCours = $coursRepository->createQueryBuilder('cours')
+            ->where('cours.createdAt >= :dateDebut')
+            ->andWhere('cours.visibility = true')
+            ->setParameter('dateDebut', new \DateTimeImmutable('-10days'))
+            ->getQuery()
+            ->getResult();
+        ;
         $repo = $em->getRepository('App\Entity\Annonce');
         $annonces = $repo->createQueryBuilder('u')->andWhere('u.visible = true','CURRENT_TIMESTAMP() < u.expirateAt')->orderBy('u.createdAt', 'DESC')->setMaxResults(10)->getQuery()->getResult();
         return $this->render("home/index.html.twig", [
