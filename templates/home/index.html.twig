@@ -61,10 +61,10 @@
             <h2 class="section-title">Nos Derniers Ajouts</h2>
             <div class="latest-additions-grid">
                 {# Dernier Cours #}
-                {% if dernierCours %}
+                {% for lesson in dernierCours %}
                     <div class="addition-card">
                         <div class="addition-image" style="
-                            background: {{ dernierCours.categorie.color }};
+                            background: {{ lesson.categorie.color }};
                             height: 200px;
                             display: flex;
                             align-items: center;
@@ -76,24 +76,19 @@
                             padding: 0.5em;
                             line-height: 1.3;
                             ">
-                            {{ dernierCours.nomCours }}
+                            {{ lesson.nomCours }}
                         </div>
-                        <h3 class="addition-title">Nouveau Cours : {{ dernierCours.nomCours }}</h3>
+                        <h3 class="addition-title">Nouveau Cours : {{ lesson.nomCours }}</h3>
                         <p class="addition-description">
-                            Cours de <strong>{{ dernierCours.categorie.libele }}</strong>
-                            pour le niveau <strong>{{ dernierCours.niveau.nomNiveau }}</strong>.
+                            Cours de <strong>{{ lesson.categorie.libele }}</strong>
+                            pour le niveau <strong>{{ lesson.niveau.nomNiveau }}</strong>.
                         </p>
 
-                        {# Recherche du premier dépôt disponible #}
-                        {% set firstDepot = dernierCours.firstAvailableDepot %}
-
-                        {% if firstDepot %}
-                            <a href="{{ path('app_depot_show_latest', {'identifier': firstDepot.identifier}) }}" class="addition-link">
+                        {# Accèder au cours #}
+                        <a href="{{ path('lesson_show', {'id': lesson.id}) }}" class="addition-link">
                                 Accéder au cours →
-                            </a>
-                        {% else %}
-                            <span class="addition-link disabled">Bientôt disponible</span>
-                        {% endif %}
+                        </a>
+
                     </div>
                 {% else %}
                     <div class="addition-card">
@@ -103,7 +98,7 @@
                         <h3 class="addition-title">Aucun cours disponible</h3>
                         <p class="addition-description">Les premiers cours seront bientôt en ligne !</p>
                     </div>
-                {% endif %}
+                {% endfor %}
 
                 {# Dernier Exercice - Section à compléter selon vos besoins #}
                 <div class="addition-card">
